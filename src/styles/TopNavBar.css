@@ -1,0 +1,32 @@
+.App-logo {
+    height: 28px;
+    margin-left: 20px;
+    margin-bottom: 10px;
+}
+
+.Top-nav-bar{
+    height: 70px;
+    width: 100vw;
+    background-color: white;
+}
+
+.space-align-container {
+    display: flex;
+    height: 70px;
+    width: 100vw;
+    color: white;
+    background: white;
+
+}
+
+.title {
+    font-size: 20px;
+    font-weight: bold;
+    margin: 0px;
+}
+
+
+
+
+
+
