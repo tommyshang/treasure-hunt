@@ -5,6 +5,42 @@ import {Button, Card, Col, List, Row} from 'antd'
 
 import homepage2 from '../../assets/images/homepage2.jpg';
 
+
+const carouselButtonStyle={
+    marginTop:'8.19px',
+    borderColor:'#00a9cd',
+    color:'#00a9cd',
+}
+
+class CarouselSlideBuy extends Component {
+    render() {
+        return (
+            <Row align="middle">
+                <Col span={8} className="carousel-buy-left-side">
+                    <Card
+                        bodyStyle={{textAlign: 'right'}}
+                        bordered={false}
+                    >
+                        <h3 style={{color: '#ff8300'}}>
+                            PAY LESS
+                        </h3>
+                        <h3>For Your Favorites</h3>
+
+                        <Button style={carouselButtonStyle}>Shop Now</Button>
+                    </Card>
+                </Col>
+
+                <Col span={16} className="carousel-buy-right-side">
+                    <Card
+                        bordered={false}
+                        cover={<img alt={"carousel-image-for-buyer"} src={homepage2} />}
+                    >
+                    </Card>
+                </Col>
+            </Row>
+
+
+
 // const listData = [];
 // for (let i = 0; i < 23; i++) {
 //     listData.push({
@@ -24,37 +60,6 @@ import homepage2 from '../../assets/images/homepage2.jpg';
 //         {text}
 //     </Space>
 // );
-
-
-
-
-
-
-class CarouselSlideBuy extends Component {
-    render() {
-        return (
-            <Row align="middle">
-                <Col span={8} className="carousel-buy-left-side">
-                    <Card
-                        bodyStyle={{textAlign: 'right'}}
-                        bordered={false}
-                    >
-                        <h3 style={{color: '#ff8300'}}>
-                            PAY LESS
-                        </h3>
-                        <h3>For Your Favorites</h3>
-                        <Button style={{marginTop:'8.19px'}}>Shop Now</Button>
-                    </Card>
-                </Col>
-
-                <Col span={16} className="carousel-buy-right-side">
-                    <Card
-                        bordered={false}
-                        cover={<img alt={"carousel-image-for-buyer"} src={homepage2} />}
-                    >
-                    </Card>
-                </Col>
-            </Row>
 
 
 

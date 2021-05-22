@@ -16,6 +16,8 @@ const cardTopHeadingStyle = {
 
 const carouselButtonStyle={
     marginTop:'8.19px',
+    borderColor:'#00a9cd',
+    color:'#00a9cd',
 }
 
 class CarouselSlideSell extends Component {

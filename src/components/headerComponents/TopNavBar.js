@@ -20,7 +20,6 @@ class TopNavBar extends Component {
             <Header className="Top-nav-bar">
                 <Row>
                     <Col xs={22} sm={20} md={18} lg={16} xl={14}>
-                        {/*<a href="" class="footer-links">ABOUT</a>*/}
                         <LeftMenu></LeftMenu>
                     </Col>
 
