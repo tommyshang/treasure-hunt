@@ -1,0 +1,21 @@
+#have-more {
+    font-weight: bold;
+    margin: 0px;
+    color: #142264;
+    textAlign: 'center';
+}
+
+#waste-less{
+    font-weight: bold;
+    margin: 0px;
+    color: #142264;
+    textAlign: 'center';
+}
+
+.Home-page-flaunt-col{
+    align-content: center;
+}
+
+.Home-page-flaunt-card{
+    overflow: hidden;
+}
