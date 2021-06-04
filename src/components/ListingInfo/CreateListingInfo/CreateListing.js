@@ -10,11 +10,8 @@ import {
     Col,
     message,
   } from 'antd';
-  //import axios from 'axios';
+  import axios from 'axios';
   import { UploadOutlined } from '@ant-design/icons';
-  /*import { BASE_URL } from "../constants";
-  **/
-
 
   const { Option } = Select;
 
@@ -42,32 +39,34 @@ import {
   const { TextArea } = Input;
   
   const CreateListing = (props) => {
-    const [form] = Form.useForm();
     function onChange(value) {
       console.log('changed', value);
     }
 
     const onFinish = (values) => {
       console.log('Received values of form: ', values);
- /*   
-      const { category,  title, price,  brand, photo, condition, description} = values;
-      const opt = {
-         method: 'POST',
-         url: `${BASE_URL}/publish`,
-         data: {
-             category: category,
-             title: title,
-             price: price,
-             brand: brand,
-             picture_1: upload[0],
-             picture_2: upload[1],
-             condition: condition,
-             description: description
-         },
-         headers: {Authorization: `Bearer ${localStorage.getItem(TOKEN_KEY)}`}
-     };
 
-     axios(opt)
+      const { category,  title, price,  brand, upload, condition, description} = values;
+
+      const formData = new FormData();
+      formData.append("seller_user_id", "lichengrao3");
+      formData.append("title", title);
+      formData.append("category", category);
+      formData.append("brand", brand);
+      formData.append("item_condition", condition);
+      formData.append("description", description);
+      formData.append("price", price);
+      formData.append("picture_1", upload[0].originFileObj);
+      formData.append("picture_2", upload[1].originFileObj);
+
+      console.log(formData.toString());
+
+     axios.post('/listing', formData, {
+       headers: {
+         'Content-Type': 'multipart/form-data',
+         Authorization: `Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJsaWNoZW5ncmFvMyIsImF1ZCI6InZpZGVvIGRlbW8iLCJlbWFpbCI6ImxpY2hlbmdyYW9AZ21haWwuY29tIiwiaWF0IjoxNjIyNzg2NzA4LCJleHAiOjE2MjI3OTAzMDh9.5_hX4GZ1Z2YBcgwWHRpWkMrNMliJRUoCRkL0OJ7TVcs`
+       }
+     })
          .then( response => {
              console.log(response)
              // case1: Pubish success
@@ -80,7 +79,6 @@ import {
              console.log('Publish failed: ', error.message);
              message.success('Publish failed!');
          })
-  **/
     };
   
     return (
@@ -174,7 +172,7 @@ import {
             },
           ]}
         >
-          <Upload name="photo" action="/upload.do" listType="picture" className= "upload">
+          <Upload name="photo"  listType="picture" className= "upload" beforeUpload={() => false}>
             <Button icon={<UploadOutlined />} className="upload-btn">Click to upload</Button>
           </Upload>
         </Form.Item>
