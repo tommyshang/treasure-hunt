@@ -40,25 +40,33 @@ const normFile = (e) => {
 const { TextArea } = Input;
 
 const EditListing = ({ id }) => {
-  const [listing, setListing] = useState({});
-  const { category, title, price, brand, upload, condition, description } = listing;
-
+  const [form] = Form.useForm();
 
   function onChange(value) {
     console.log('changed', value);
   }
 
+  // prefill the form with the data fetched from api
   useEffect(() => {
     console.log("fetching data");
-    axios.get('/listing', {
+    axios.get('/api/listing', {
       params: {
-        listing_id: '1622754560957',
+        listing_id: {id}.id,
       }
     })
       .then((res) => {
         console.log("fetched data")
         console.log(res);
-        setListing(res.data);
+        form.setFieldsValue(res.data);
+
+        var picture_display_div = document.getElementById("picture_display");
+        console.log("test: " + picture_display_div);
+        picture_display_div.innerHtml = "";
+        for (var key in res.data.picture_urls) {
+          var picture_url = /*picture_url_prefix + */ res.data.picture_urls[key];
+          //var picture_url = "http://localhost:3000/static/media/Electronics3.503d03f4.jpg";
+          picture_display_div.innerHTML = '<img src="' + picture_url + '"/><br/>';
+        }
       })
       .catch((e) => console.log(e));
   }, []);
@@ -84,7 +92,8 @@ const EditListing = ({ id }) => {
 
     console.log(formData.toString());
 
-    axios.post('/listing', formData, {
+    // update listing with the form data
+    axios.post('/api/listing', formData, {
       headers: {
         'Content-Type': 'multipart/form-data',
         Authorization: `Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJsaWNoZW5ncmFvMyIsImF1ZCI6InZpZGVvIGRlbW8iLCJlbWFpbCI6ImxpY2hlbmdyYW9AZ21haWwuY29tIiwiaWF0IjoxNjIyNzg2NzA4LCJleHAiOjE2MjI3OTAzMDh9.5_hX4GZ1Z2YBcgwWHRpWkMrNMliJRUoCRkL0OJ7TVcs`
@@ -106,12 +115,12 @@ const EditListing = ({ id }) => {
 
 
   return (
-    <div>{listing.title}
+    <div>
       <Form
+        form = {form}
         name="validate_other"
         {...formItemLayout}
         onFinish={onFinish}
-        initialValues={{ title: 'listing.title', price: '100', brand: 'btw' }}
         className="form-box"
       >
 
@@ -205,6 +214,9 @@ const EditListing = ({ id }) => {
           </Upload>
         </Form.Item>
 
+        <div id="picture_display">
+        </div>
+
         <Form.Item
           name="condition"
           label="CONDITION"
@@ -225,7 +237,7 @@ const EditListing = ({ id }) => {
 
 
 
-        <Form.Item name="desctiption" label="DESCRIPTION">
+        <Form.Item name="description" label="DESCRIPTION">
           <TextArea rows={4} className="textarea-input" />
         </Form.Item>
 

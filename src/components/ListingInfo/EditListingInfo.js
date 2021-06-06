@@ -6,7 +6,7 @@ import EditListing from './EditListingInfo/EditListing';
 import ListingImage from './CreateListingImage/ListingImage';
 import Headline from './Headline/Headline';
 
-function EditListingInfo() {
+function EditListingInfo({ id }) {
   return (
     <div className="EditListingInfo">
       <Row className="main">
@@ -14,7 +14,7 @@ function EditListingInfo() {
           <Headline />
           <br />
           <br />
-          <EditListing />
+          <EditListing id={id}/>
         </Col>
         <Col span={12} className="right-side">
           <ListingImage />

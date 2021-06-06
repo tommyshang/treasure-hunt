@@ -57,8 +57,10 @@ const CreateListing = (props) => {
     formData.append("item_condition", condition);
     formData.append("description", description);
     formData.append("price", price);
-    formData.append("picture_1", upload[0].originFileObj);
-    formData.append("picture_2", upload[1].originFileObj);
+    for (var i = 0; i < upload.length; ++i) {
+      var key = "picture_" + (i+1);
+      formData.append(key, upload[i].originFileObj);
+    }
 
     console.log(formData.toString());
 
@@ -151,7 +153,7 @@ const CreateListing = (props) => {
           formatter={value => `$ ${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
           parser={value => value.replace(/\$\s?|(,*)/g, '')}
           onChange={onChange}
-          className="input-num"
+          className="input-num"formNoValidat
         />
 
       </Form.Item>

@@ -8,7 +8,7 @@ import CreateListingInfo from './components/ListingInfo/CreateListingInfo';
 
 ReactDOM.render(
   <React.StrictMode>
-    <EditListingInfo />
+    <EditListingInfo id='1622754560957'/>
   </React.StrictMode>,
   document.getElementById('root')
 );
