@@ -16,8 +16,8 @@ const ListingDetail = (props) => {
   const { isFetching, fetchListingDetail } = useFetchListingDetail();
 
   //TODO: product_id and userID is passed from pervious page
-  const testMode = false;//use fake data when is true
-  const productId = '1622912913813';
+  const testMode = true; //use fake data when is true
+  const productId = '1622754560957';
   const userID = 'lichengrao3';
   const fakeData = {
     listing_id: '1622614549717',
@@ -44,14 +44,12 @@ const ListingDetail = (props) => {
   };
 
   const fetch = async () => {
-    console.log("fetching...")
     const { fetchedListingDetail, error } = await fetchListingDetail(productId);
     if (error !== undefined) {
       message.error('Fetch listing detail failed');
     } else {
+      console.log(fetchedListingDetail);
       setListingDetail(fetchedListingDetail);
-      console.log("fetch listing detail: ")
-      console.log(fetchedListingDetail)
     }
   };
 
@@ -81,7 +79,7 @@ const ListingDetail = (props) => {
             </Row>
             <Row className="content">
               <Col xs={{ span: 24 }} lg={{ span: 10, gutter: 2 }}>
-                {/* <Pictures pictureUrls={listingDetail.picture_urls} /> */}
+                <Pictures pictureUrls={listingDetail.picture_urls} />
               </Col>
               <Col xs={{ span: 24 }} lg={{ offset: 2, span: 10 }}>
                 <TextualInfo listingInfo={listingDetail} userID={userID} />

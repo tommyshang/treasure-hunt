@@ -18,7 +18,7 @@ const Overview = (props) => {
   const [isLogIn, setIsLogIn] = useState(false);
   const [isSeller, setIsSeller] = useState(false);
 
-  const testMode = false;
+  const testMode = true;
   const test = () => {
     setIsSeller(false); //check if user is seller
     setIsSave(false); //check if this is saved by buyer
