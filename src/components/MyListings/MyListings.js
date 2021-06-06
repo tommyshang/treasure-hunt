@@ -4,13 +4,14 @@ import { LoadingOutlined } from '@ant-design/icons';
 
 import { PICTURE_URL_PREFIX } from 'constants/constants';
 import './MyListings.style.css';
-import { useFetchMyListings, useLogin } from 'hooks';
+import { useFetchMyListings, useLogin, useSearch } from 'hooks';
 
 const { Header, Content } = Layout;
 
 const MyListings = () => {
   // listings stores listings data stored in db
   const [myListings, setMyListings] = useState([]);
+  const { isSearching, search } = useSearch();
   const { isLoggingIn, login } = useLogin(); // For testing purposes, TODO remove
   const { isFetching, fetchMyListings } = useFetchMyListings();
 
@@ -28,8 +29,16 @@ const MyListings = () => {
     }
   };
 
+  const test = async () => {
+    await search({
+      category: undefined,
+      keyword: 'table',
+    });
+  };
+
   useEffect(() => {
-    fetch();
+    test();
+    //fetch();
   }, []);
 
   const getPictureUrl = (picture_urls) => {

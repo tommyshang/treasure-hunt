@@ -6,13 +6,13 @@ import '../styles/Pictures.css';
 
 
 const Pictures = (props) => {
-  const { pictureUrls } = props;
-  const urls = Object.values(pictureUrls);
+  // const { pictureUrls } = props;
+  // const urls = Object.values(pictureUrls);
   //console.log(Object.values(pictureUrls));
 
   return (
     <div>
-      <Carousel
+      {/* <Carousel
         className="carousel"
         autoplay
         // arrows
@@ -23,7 +23,7 @@ const Pictures = (props) => {
         {urls.map((url) => {
           return <img src={url} />;
         })}
-      </Carousel>
+      </Carousel> */}
     </div>
   );
 };
