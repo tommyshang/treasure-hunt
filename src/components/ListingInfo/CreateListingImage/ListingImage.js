@@ -1,13 +1,8 @@
 import { Image } from 'antd';
-//import artifacts from '../../../assets/images/artifacts.png';
-import Electronics3 from '../../../assets/images/Electronics3.jpg';
+import electronics3 from 'assets/images/electronics3.jpg';
 
 function ListingImage() {
-  return (
-    <Image
-      src={Electronics3}
-    />
-  );
+  return <Image src={electronics3} />;
 }
 
 export default ListingImage;
