@@ -77,23 +77,24 @@ const EditListing = ({ id }) => {
   const onFinish = (values) => {
     console.log('Received values of form: ', values);
 
-    const { category, title, price, brand, upload, condition, description } = values;
+    const { category, title, price, brand, upload, item_condition, description } = values;
 
     const formData = new FormData();
     formData.append("seller_user_id", "lichengrao3");
     formData.append("title", title);
     formData.append("category", category);
     formData.append("brand", brand);
-    formData.append("item_condition", condition);
+    formData.append("item_condition", item_condition);
     formData.append("description", description);
     formData.append("price", price);
-    formData.append("picture_1", upload[0].originFileObj);
-    formData.append("picture_2", upload[1].originFileObj);
+    for (var i = 0; i < upload.length; ++i) {
+      var key = "picture_" + (i + 1);
+      formData.append(key, upload[i].originFileObj);
+    }
 
     console.log(formData.toString());
 
-    // update listing with the form data
-    axios.post('/api/listing', formData, {
+    axios.post('/listing', formData, {
       headers: {
         'Content-Type': 'multipart/form-data',
         Authorization: `Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJsaWNoZW5ncmFvMyIsImF1ZCI6InZpZGVvIGRlbW8iLCJlbWFpbCI6ImxpY2hlbmdyYW9AZ21haWwuY29tIiwiaWF0IjoxNjIyNzg2NzA4LCJleHAiOjE2MjI3OTAzMDh9.5_hX4GZ1Z2YBcgwWHRpWkMrNMliJRUoCRkL0OJ7TVcs`
@@ -112,6 +113,7 @@ const EditListing = ({ id }) => {
         message.success('Publish failed!');
       })
   };
+
 
 
   return (
@@ -218,7 +220,7 @@ const EditListing = ({ id }) => {
         </div>
 
         <Form.Item
-          name="condition"
+          name="item_condition"
           label="CONDITION"
           rules={[
             {
