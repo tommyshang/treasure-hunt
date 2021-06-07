@@ -10,6 +10,7 @@ import { Link, useHistory } from 'react-router-dom';
 import { useSignup } from 'hooks';
 
 const SignUp = () => {
+
   const { isSigningup, signup } = useSignup();
   const history = useHistory();
 
@@ -24,6 +25,7 @@ const SignUp = () => {
     } else {
       message.error('Failed to create new account, please try again');
     }
+
   };
 
   const onFinishFailed = () => {
