@@ -36,8 +36,6 @@ const normFile = (e) => {
 const { TextArea } = Input;
 
 const CreateListing = (props) => {
-  // localStorage.setItem("seller_user_id", "lichengrao3");
-  // localStorage.getItem("seller_user_id")
   function onChange(value) {
     console.log('changed', value);
   }
@@ -71,7 +69,7 @@ const CreateListing = (props) => {
       .then(response => {
         console.log(response)
         // case1: Pubish success
-        if (response.status === 200 || response.status === 201) {
+        if (response.status === 201) {
           message.success('Publish succeed!');
         }
       })
@@ -151,7 +149,7 @@ const CreateListing = (props) => {
           formatter={value => `$ ${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
           parser={value => value.replace(/\$\s?|(,*)/g, '')}
           onChange={onChange}
-          className="input-num" formNoValidat
+          className="input-num" formNoValidate
         />
 
       </Form.Item>

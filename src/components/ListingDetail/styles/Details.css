@@ -1,0 +1,38 @@
+.details {
+  font-size: 25px;
+  font-weight: normal;
+}
+.ant-divider {
+  background-color: grey;
+  font-size: large;
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+.detail-text {
+  font-size: 40px;
+  font-weight: 500;
+}
+
+.condition {
+  width: 100%;
+  font-size: 30px;
+}
+
+.brand {
+  width: 100%;
+  font-size: 30px;
+}
+.title {
+  width: fit-content;
+  font-size: 35px;
+  flex: 1;
+  text-align: left;
+}
+.value {
+  width: fit-content;
+  flex: 1;
+}
+
+.description {
+  font-size: 20px;
+}
