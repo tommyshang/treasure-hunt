@@ -71,7 +71,12 @@ const SavedListings = () => {
               }}
               dataSource={savedListings}
               renderItem={(item) => (
-                <List.Item key={item.listing_id}>
+                <List.Item
+                  key={item.listing_id}
+                  onClick={() =>
+                    history.push(`/listing-detail/${item.listing_id}`)
+                  }
+                >
                   <Card
                     hoverable
                     style={{ width: '100%' }}
