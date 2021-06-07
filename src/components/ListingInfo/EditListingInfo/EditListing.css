@@ -1,53 +1,49 @@
 .confirm-btn {
-    width: 100%;
-    border: 2px solid #ccc;
-    border-radius: 12px;
-    height: 40px;
-   }
-   
+  width: 100%;
+  border: 2px solid #ccc;
+  border-radius: 12px;
+  height: 40px;
+}
+
 .input-num {
-    width: 100%;
-    border: 2px solid #ccc;
-    border-radius: 12px;
-    padding: 2px;
+  width: 100%;
+  border: 2px solid #ccc;
+  border-radius: 12px;
+  padding: 2px;
 }
 
 .upload-btn {
-    width: 100%;
-    height: 120px;
-    border: 2px solid #ccc;
-    border-radius: 12px;
+  width: 100%;
+  height: 120px;
+  border: 2px solid #ccc;
+  border-radius: 12px;
 }
 
 .form-box {
-    font-size: 30px;
-    font-weight: bold;
-    margin: 0px;
+  font-size: 30px;
+  font-weight: bold;
+  margin: 0px;
 }
 .ant-upload {
-    width: 100%;
-
+  width: 100%;
 }
 
 .title-input {
-    border: 2px solid #ccc;
-    border-radius: 12px;
-
+  border: 2px solid #ccc;
+  border-radius: 12px;
 }
 
 .brand-input {
-    /*border: 2px solid #ccc; **/
-    border-radius: 12px;
-
+  /*border: 2px solid #ccc; **/
+  border-radius: 12px;
 }
 
 .select-input {
-    border: 2px solid #ccc;
-    border-radius: 12px;
+  border: 2px solid #ccc;
+  border-radius: 12px;
 }
 
 .textarea-input {
-    border: 2px solid #ccc;
-    border-radius: 12px;
-
+  border: 2px solid #ccc;
+  border-radius: 12px;
 }

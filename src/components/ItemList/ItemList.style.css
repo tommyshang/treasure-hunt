@@ -1,40 +1,34 @@
-
-
-.ant-layout-header{
+.ant-layout-header {
   text-align: center;
   /*background-color: #fff !important;*/
 }
 
-.ant-layout-content{
+.ant-layout-content {
   background-color: #fff;
   height: inherit;
 }
 
-
-.item-list{
+.item-list {
   padding: 2em;
 }
 
-.filter{
-  float: right;  
+.filter {
+  float: right;
 }
 
-.items{
+.items {
   width: 100%;
 }
 
-
-.item-icons{
+.item-icons {
   height: 5em;
   width: 100%;
 }
 
-.map-container{
+.map-container {
   position: fixed;
   right: 0;
   bottom: 0;
-  top:10%;
-  width:100%;
-  
+  top: 10%;
+  width: 100%;
 }
-

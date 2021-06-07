@@ -7,8 +7,9 @@ import './SavedListings.style.css';
 import { useLogin, useFetchSavedListings } from 'hooks';
 import { useHistory } from 'react-router';
 import TopNavBar from 'components/Header/TopNavBar';
+import AppFooter from 'components/Footer/AppFooter';
 
-const { Header, Content } = Layout;
+const { Header, Content, Footer } = Layout;
 const { Meta } = Card;
 
 const SavedListings = () => {
@@ -43,7 +44,7 @@ const SavedListings = () => {
 
   return (
     <div className="saved-listings-page">
-      <Layout>
+      <Layout style={{ minHeight: '100vh' }}>
         <Affix offsetTop={0} className="app__affix-header">
           <TopNavBar />
         </Affix>
@@ -102,6 +103,11 @@ const SavedListings = () => {
             />
           )}
         </Content>
+
+        <Footer>
+          {/* TODO make this at the bottom */}
+          <AppFooter />
+        </Footer>
       </Layout>
     </div>
   );

@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { useState } from 'react';
-import { TOKEN_KEY } from '../../constants/constants';
+import { TOKEN_KEY } from 'constants/constants';
 
 const useFetchSavedListings = () => {
   const [isFetching, setIsFetching] = useState(false);

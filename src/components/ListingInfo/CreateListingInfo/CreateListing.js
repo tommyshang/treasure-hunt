@@ -1,5 +1,4 @@
 import {
-  Affix,
   Input,
   Form,
   Select,
@@ -10,13 +9,13 @@ import {
   Row,
   Col,
   message,
-  Layout,
 } from 'antd';
 
 import axios from 'axios';
 import { UploadOutlined } from '@ant-design/icons';
-import TopNavBar from 'components/Header/TopNavBar';
-import { Content } from 'antd/lib/layout/layout';
+import { TOKEN_KEY } from 'constants/constants';
+import { checkValidToken } from 'utils';
+import { useHistory } from 'react-router';
 
 const { Option } = Select;
 
@@ -40,6 +39,7 @@ const normFile = (e) => {
 const { TextArea } = Input;
 
 const CreateListing = (props) => {
+  const history = useHistory();
   function onChange(value) {
     console.log('changed', value);
   }
@@ -58,7 +58,7 @@ const CreateListing = (props) => {
     } = values;
 
     const formData = new FormData();
-    formData.append('seller_user_id', 'lichengrao3');
+    formData.append('seller_user_id', checkValidToken());
     formData.append('title', title);
     formData.append('category', category);
     formData.append('brand', brand);
@@ -76,179 +76,171 @@ const CreateListing = (props) => {
       .post('/api/listing', formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
-          Authorization: `Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJsaWNoZW5ncmFvMyIsImF1ZCI6InZpZGVvIGRlbW8iLCJlbWFpbCI6ImxpY2hlbmdyYW9AZ21haWwuY29tIiwiaWF0IjoxNjIzMDIyNTMzLCJleHAiOjE2MjMwMjYxMzN9.jZSBX1suELwDJPhjbDBT54n7jY2c7fKOK79HO6gZhMc`,
+          Authorization: `Bearer ${localStorage.getItem(TOKEN_KEY)}`,
         },
       })
       .then((response) => {
         console.log(response);
         // case1: Pubish success
         if (response.status === 201) {
-          message.success('Publish succeed!');
+          message.success('Publish successful!');
+          console.log(`Bring me to ${response.data}`);
+          history.push(`/listing-detail/${response.data}`);
         }
       })
       .catch((error) => {
         // case2: Publish failed
         console.log('Publish failed: ', error.message);
-        message.success('Publish failed!');
+        message.error('Publish failed!');
       });
   };
 
   return (
-    <Layout>
-      {/* <Affix offsetTop={0} className="app__affix-header">
-        <TopNavBar />
-      </Affix> */}
-      <Content>
-        <Form
-          name="validate_other"
-          {...formItemLayout}
-          onFinish={onFinish}
-          className="form-box"
+    <Form
+      name="validate_other"
+      {...formItemLayout}
+      onFinish={onFinish}
+      className="form-box"
+    >
+      <Form.Item
+        name="category"
+        label="CATEGORY"
+        rules={[
+          {
+            required: true,
+            message: 'Please select category!',
+          },
+        ]}
+      >
+        <Radio.Group>
+          <Row>
+            <Col span={7}>
+              <Radio value={'Cars'} style={{ lineHeight: '32px' }}>
+                Cars
+              </Radio>
+            </Col>
+            <Col span={10}>
+              <Radio
+                value={'Exercise Equipments'}
+                style={{ lineHeight: '32px' }}
+              >
+                Exercise Equipments
+              </Radio>
+            </Col>
+            <Col span={7}>
+              <Radio value={'Furniture'} style={{ lineHeight: '32px' }}>
+                Furniture
+              </Radio>
+            </Col>
+            <Col span={7}>
+              <Radio value={'Books'} style={{ lineHeight: '32px' }}>
+                Books
+              </Radio>
+            </Col>
+            <Col span={10}>
+              <Radio value={'Apparels'} style={{ lineHeight: '32px' }}>
+                Apparels
+              </Radio>
+            </Col>
+            <Col span={7}>
+              <Radio value={'Electronics'} style={{ lineHeight: '32px' }}>
+                Electronics
+              </Radio>
+            </Col>
+          </Row>
+        </Radio.Group>
+      </Form.Item>
+
+      <Form.Item
+        name="title"
+        label="TITLE"
+        rules={[
+          {
+            required: true,
+            message: 'Please input the title!',
+          },
+        ]}
+      >
+        <Input className="title-input" />
+      </Form.Item>
+
+      <Form.Item
+        name="price"
+        label="PRICE"
+        rules={[
+          {
+            required: true,
+            message: 'Please input the price!',
+          },
+        ]}
+      >
+        <InputNumber
+          formatter={(value) =>
+            `$ ${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+          }
+          parser={(value) => value.replace(/\$\s?|(,*)/g, '')}
+          onChange={onChange}
+          className="input-num"
+          formNoValidate
+        />
+      </Form.Item>
+
+      <Form.Item name="brand" label="BRAND">
+        <Input className="brand-input" />
+      </Form.Item>
+
+      <Form.Item
+        name="upload"
+        label="ADD PHOTOS"
+        valuePropName="fileList"
+        getValueFromEvent={normFile}
+        rules={[
+          {
+            required: true,
+            message: 'Please upload the photos!',
+          },
+        ]}
+      >
+        <Upload
+          name="photo"
+          listType="picture"
+          className="upload"
+          beforeUpload={() => false}
         >
-          <Form.Item
-            name="category"
-            label="CATEGORY"
-            rules={[
-              {
-                required: true,
-                message: 'Please select category!',
-              },
-            ]}
-          >
-            <Radio.Group>
-              <Row>
-                <Col span={7}>
-                  <Radio value={'Cars'} style={{ lineHeight: '32px' }}>
-                    Cars
-                  </Radio>
-                </Col>
-                <Col span={10}>
-                  <Radio
-                    value={'Exercise Equipment'}
-                    style={{ lineHeight: '32px' }}
-                  >
-                    Exercise Equipment
-                  </Radio>
-                </Col>
-                <Col span={7}>
-                  <Radio value={'Furniture'} style={{ lineHeight: '32px' }}>
-                    Furniture
-                  </Radio>
-                </Col>
-                <Col span={7}>
-                  <Radio value={'Books'} style={{ lineHeight: '32px' }}>
-                    Books
-                  </Radio>
-                </Col>
-                <Col span={10}>
-                  <Radio
-                    value={'Musical Instruments'}
-                    style={{ lineHeight: '32px' }}
-                  >
-                    Musical Instruments
-                  </Radio>
-                </Col>
-                <Col span={7}>
-                  <Radio value={'Electronics'} style={{ lineHeight: '32px' }}>
-                    Electronics
-                  </Radio>
-                </Col>
-              </Row>
-            </Radio.Group>
-          </Form.Item>
+          <Button icon={<UploadOutlined />} className="upload-btn">
+            Click to upload
+          </Button>
+        </Upload>
+      </Form.Item>
 
-          <Form.Item
-            name="title"
-            label="TITLE"
-            rules={[
-              {
-                required: true,
-                message: 'Please input the title!',
-              },
-            ]}
-          >
-            <Input className="title-input" />
-          </Form.Item>
+      <Form.Item
+        name="item_condition"
+        label="CONDITION"
+        rules={[
+          {
+            required: true,
+            message: 'Please select condition!',
+          },
+        ]}
+      >
+        <Select bordered={false} className="select-input">
+          <Option value="New">New</Option>
+          <Option value="Used - Like new">Used - Like new</Option>
+          <Option value="Used - Good">Used - Good</Option>
+          <Option value="Used - Fair">Used - Fair</Option>
+        </Select>
+      </Form.Item>
 
-          <Form.Item
-            name="price"
-            label="PRICE"
-            rules={[
-              {
-                required: true,
-                message: 'Please input the price!',
-              },
-            ]}
-          >
-            <InputNumber
-              formatter={(value) =>
-                `$ ${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')
-              }
-              parser={(value) => value.replace(/\$\s?|(,*)/g, '')}
-              onChange={onChange}
-              className="input-num"
-              formNoValidate
-            />
-          </Form.Item>
+      <Form.Item name="description" label="DESCRIPTION">
+        <TextArea rows={4} className="textarea-input" />
+      </Form.Item>
 
-          <Form.Item name="brand" label="BRAND">
-            <Input className="brand-input" />
-          </Form.Item>
-
-          <Form.Item
-            name="upload"
-            label="ADD PHOTOS"
-            valuePropName="fileList"
-            getValueFromEvent={normFile}
-            rules={[
-              {
-                required: true,
-                message: 'Please upload the photos!',
-              },
-            ]}
-          >
-            <Upload
-              name="photo"
-              listType="picture"
-              className="upload"
-              beforeUpload={() => false}
-            >
-              <Button icon={<UploadOutlined />} className="upload-btn">
-                Click to upload
-              </Button>
-            </Upload>
-          </Form.Item>
-
-          <Form.Item
-            name="item_condition"
-            label="CONDITION"
-            rules={[
-              {
-                required: true,
-                message: 'Please select condition!',
-              },
-            ]}
-          >
-            <Select bordered={false} className="select-input">
-              <Option value="new">New</Option>
-              <Option value="used - like new">Used - Like new</Option>
-              <Option value="used - good">Used - Good</Option>
-              <Option value="used - fair">Used - Fair</Option>
-            </Select>
-          </Form.Item>
-
-          <Form.Item name="description" label="DESCRIPTION">
-            <TextArea rows={4} className="textarea-input" />
-          </Form.Item>
-
-          <Form.Item>
-            <Button type="primary" htmlType="submit" className="confirm-btn">
-              PUBLISH
-            </Button>
-          </Form.Item>
-        </Form>
-      </Content>
-    </Layout>
+      <Form.Item>
+        <Button type="primary" htmlType="submit" className="confirm-btn">
+          PUBLISH
+        </Button>
+      </Form.Item>
+    </Form>
   );
 };
 

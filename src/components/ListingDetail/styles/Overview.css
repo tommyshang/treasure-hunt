@@ -1,19 +1,16 @@
 .catergries {
   font-size: 25px;
   width: 100%;
-  
 }
 
 .product-name {
   font-size: 60px;
   font-weight: bolder;
-  width:100%;
-  
+  width: 100%;
 }
 .date-location {
   font-size: 25px;
 }
-
 
 .star {
   border: 0px;

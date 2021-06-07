@@ -1,19 +1,20 @@
-import React, { useState, useEffect, useCallback } from "react";
-import { Layout, Row, Col, Menu, Dropdown, Button, Space } from "antd";
-import Item from "./Item/Item";
-import GoogleMap from "./Map/GoogleMap";
-import Axios from "axios";
-import Moment from "moment";
+import React, { useState, useEffect, useCallback } from 'react';
+import { Layout, Row, Col, Menu, Dropdown, Button, Space, Affix } from 'antd';
+import Item from './Item/Item';
+import GoogleMap from './Map/GoogleMap';
+import Axios from 'axios';
+import Moment from 'moment';
 
-import "./ItemList.style.css";
-import { FilterOutlined, OrderedListOutlined } from "@ant-design/icons";
+import './ItemList.style.css';
+import { FilterOutlined, OrderedListOutlined } from '@ant-design/icons';
+import TopNavBar from 'components/Header/TopNavBar';
 
 const { Header, Content } = Layout;
 
 const filterMenu = (
   <Menu>
     <Menu.Item>Cars</Menu.Item>
-    <Menu.Item>Exercise Equipment</Menu.Item>
+    <Menu.Item>Exercise Equipments</Menu.Item>
     <Menu.Item>Furniture</Menu.Item>
     <Menu.Item>Electronics</Menu.Item>
     <Menu.Item>Books</Menu.Item>
@@ -27,7 +28,7 @@ const ItemList = () => {
   const changData = useCallback((para) => setItemData(para), []);
 
   useEffect(() => {
-    Axios.get("https://mocki.io/v1/309b90ed-ae4d-4ac5-9636-1e89777c8644")
+    Axios.get('https://mocki.io/v1/309b90ed-ae4d-4ac5-9636-1e89777c8644')
       .then((res) => {
         setItems(res.data.product);
       })
@@ -53,8 +54,8 @@ const ItemList = () => {
   const sortNewest = () => {
     const sorted = [...items].sort((a, b) => {
       return (
-        new Moment(a.create.substr(0, 10)).format("YYYYMMDD") -
-        new Moment(b.create.substr(0, 10)).format("YYYYMMDD")
+        new Moment(a.create.substr(0, 10)).format('YYYYMMDD') -
+        new Moment(b.create.substr(0, 10)).format('YYYYMMDD')
       );
     });
 
@@ -78,7 +79,9 @@ const ItemList = () => {
   return (
     <div className="items-page">
       <Layout>
-        <Header>Header</Header>
+        <Affix offsetTop={0} className="app__affix-header">
+          <TopNavBar />
+        </Affix>
         <Content className="item-list-row">
           <Row>
             <Col span={14} className="item-list">

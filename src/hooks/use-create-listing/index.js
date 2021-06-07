@@ -12,13 +12,12 @@ const useCreateListing = () => {
   const [isCreating, setIsCreating] = useState(false);
 
   const createListing = async (parameters) => {
-
     // define the request
     const url = `/api/listing`;
 
     const formData = new FormData();
     formData.append('id', 1);
-    formData.append('string', );
+    formData.append('string');
     formData.append('yinyang.png', fs.createReadStream('./yinyang.png'));
 
     const returnObj = {};
@@ -27,8 +26,8 @@ const useCreateListing = () => {
     try {
       const response = await axios.post(url, formData, {
         headers: {
-          'Content-Type': 'multipart/form-data'
-        }
+          'Content-Type': 'multipart/form-data',
+        },
       });
       if (response.status === 200) {
         returnObj.ListingId = response.data;

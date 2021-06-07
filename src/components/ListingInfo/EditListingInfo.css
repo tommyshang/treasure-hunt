@@ -1,16 +1,15 @@
 .EditListingInfo {
-    min-height: 100vh;
-    overflow: hidden;
-    display: block;
-    position: relative;
-    padding-bottom: 5px;
-  }
-  
-  .left-side {
-    padding: 100px;
-  }
-  
-  .right-side {
-    padding: 100px;
-    
-  }
+  min-height: 100vh;
+  overflow: hidden;
+  display: block;
+  position: relative;
+  padding-bottom: 5px;
+}
+
+.left-side {
+  padding: 100px;
+}
+
+.right-side {
+  padding: 100px;
+}

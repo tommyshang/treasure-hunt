@@ -1,18 +1,18 @@
 /*TODO: Z index of the carousel dots?*/
 .ant-carousel .slick-dots li button {
-    background: #00a9cd;
-    opacity: 0.4;
+  background: #00a9cd;
+  opacity: 0.4;
 }
 
 .ant-carousel .slick-dots li.slick-active button {
-    opacity: 1;
-    background: #00a9cd;
+  opacity: 1;
+  background: #00a9cd;
 }
 
-.carousel-buy-left-side{
-    background: white;
+.carousel-buy-left-side {
+  background: white;
 }
 
-.carousel-sell-right-side{
-    background: white;
+.carousel-sell-right-side {
+  background: white;
 }

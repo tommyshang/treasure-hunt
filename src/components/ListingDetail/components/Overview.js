@@ -4,7 +4,7 @@ import { Row, Col, Button, message } from 'antd';
 import { StarOutlined, StarFilled, FastForwardFilled } from '@ant-design/icons';
 import { useSaveListing } from 'hooks';
 import { useFetchMyListings } from 'hooks';
-import { TOKEN_KEY } from '../../../constants/constants';
+import { TOKEN_KEY } from 'constants/constants';
 import '../styles/Overview.css';
 import jwt_decode from 'jwt-decode';
 import { useHistory } from 'react-router';

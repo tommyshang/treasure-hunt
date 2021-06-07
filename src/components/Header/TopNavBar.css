@@ -1,32 +1,30 @@
 .App-logo {
-    height: 28px;
-    margin-left: 20px;
-    margin-bottom: 10px;
+  height: 28px;
+  margin-left: 20px;
+  margin-bottom: 10px;
 }
 
-.Top-nav-bar{
-    height: 70px;
-    width: 100vw;
-    background-color: white;
+.Top-nav-bar {
+  height: 70px;
+  width: 100vw;
+  background-color: white;
 }
 
 .space-align-container {
-    display: flex;
-    height: 70px;
-    width: 100vw;
-    color: white;
-    background: white;
-
+  display: flex;
+  height: 70px;
+  width: 100vw;
+  color: white;
+  background: white;
 }
 
 .title {
-    font-size: 20px;
-    font-weight: bold;
-    margin: 0px;
+  font-size: 20px;
+  font-weight: bold;
+  margin: 0px;
 }
 
 /* .ant-menu-overflow-item:hover, .ant-menu-overflow-submenu:hover, .ant-menu-overflow-item-active, .ant-menu-overflow-submenu-active, .ant-menu-overflow-item-open, .ant-menu-overflow-submenu-open, .ant-menu-overflow-item-selected, .ant-menu-overflow-submenu-selected{
     color:#ff8300;
     border-bottom: 2px solid #ff8300;
 } */
-

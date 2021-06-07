@@ -7,8 +7,9 @@ import './MyListings.style.css';
 import { useFetchMyListings, useLogin } from 'hooks';
 import { useHistory } from 'react-router';
 import TopNavBar from 'components/Header/TopNavBar';
+import AppFooter from 'components/Footer/AppFooter';
 
-const { Header, Content } = Layout;
+const { Header, Content, Footer } = Layout;
 
 const MyListings = () => {
   // listings stores listings data stored in db
@@ -49,7 +50,7 @@ const MyListings = () => {
 
   return (
     <div className="my-listings-page">
-      <Layout>
+      <Layout style={{ minHeight: '100vh' }}>
         <Affix offsetTop={0} className="app__affix-header">
           <TopNavBar />
         </Affix>
@@ -81,11 +82,6 @@ const MyListings = () => {
                 pageSize: 5,
               }}
               dataSource={myListings.reverse()} // Sorted by recency
-              footer={
-                <div>
-                  <b>Treasure Hunt</b> footer part
-                </div>
-              }
               renderItem={(item) => (
                 <List.Item
                   onClick={() =>
@@ -107,7 +103,7 @@ const MyListings = () => {
                   ]}
                   extra={
                     <img
-                      width={272}
+                      height={180}
                       alt="logo"
                       src={getPictureUrl(item.picture_urls)}
                     />
@@ -122,6 +118,10 @@ const MyListings = () => {
             />
           )}
         </Content>
+
+        <Footer>
+          <AppFooter />
+        </Footer>
       </Layout>
     </div>
   );

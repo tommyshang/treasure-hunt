@@ -1,11 +1,11 @@
 @import '~antd/dist/antd.css';
 @import url('https://fonts.googleapis.com/css2?family=Bungee&family=Martel+Sans:wght@400;700&family=Cabin:wght@700&display=swap');
-@import "./components/ListingInfo/CreateListingInfo.css";
-@import "./components/ListingInfo/CreateListingInfo/CreateListing.css";
-@import "./components/ListingInfo/CreateListingImage/ListingImage.css";
-@import "./components/ListingInfo/Headline/Headline.css";
-@import "./components/ListingInfo/EditListingInfo.css";
-@import "./components/ListingInfo/EditListingInfo/EditListing.css";
+@import './components/ListingInfo/CreateListingInfo.css';
+@import './components/ListingInfo/CreateListingInfo/CreateListing.css';
+@import './components/ListingInfo/CreateListingImage/ListingImage.css';
+@import './components/ListingInfo/Headline/Headline.css';
+@import './components/ListingInfo/EditListingInfo.css';
+@import './components/ListingInfo/EditListingInfo/EditListing.css';
 @import 'components/ItemList/ItemList.style.css';
 @import 'components/Header/SubNavBar.css';
 @import 'components/Header/TopNavBar.css';
@@ -28,6 +28,3 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
-
-
-
