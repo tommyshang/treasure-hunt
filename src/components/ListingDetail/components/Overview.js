@@ -57,10 +57,12 @@ const Overview = (props) => {
 
   useEffect(() => {
     checkIsSeller();
-  }, [isLogIn]);
+  }, [isLogIn, sellerId]);
 
   const checkIsSeller = () => {
+    console.log(userId);
     if (userId !== null) {
+      console.log(sellerId);
       if (userId === sellerId) {
         setIsSeller(true);
       } else {
@@ -193,9 +195,10 @@ const Overview = (props) => {
           ) : (
             <Button
               size="large"
+              loading={isSaving || isUnsaving}
               className="star"
               icon={
-                isSave ? ( //isSave for testing
+                isSave ? ( 
                   <StarFilled style={{ color: 'black' }} />
                 ) : (
                   <StarOutlined style={{ color: 'black' }} />

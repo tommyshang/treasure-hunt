@@ -82,13 +82,30 @@ const SavedListings = () => {
                 >
                   <Card
                     hoverable
-                    style={{ width: '100%' }}
+                    style={{
+                      height: '100%',
+                      width: '100%',
+                    }}
                     cover={
-                      <img
-                        style={{ padding: '1px' }}
-                        alt="pic"
-                        src={getPictureUrl(item.picture_urls)}
-                      />
+                      <div
+                        style={{
+                          display: 'inline-block',
+                          height: '240px',
+                          overflow: 'hidden',
+                          verticalAlign: 'middle',
+                        }}
+                      >
+                        <img
+                          style={{
+                            padding: '1px',
+                            width: '100%',
+                            display: 'block',
+                            verticalAlign: 'middle',
+                          }}
+                          alt="pic"
+                          src={getPictureUrl(item.picture_urls)}
+                        />
+                      </div>
                     }
                   >
                     <Meta title={item.title} className="listing-info" />

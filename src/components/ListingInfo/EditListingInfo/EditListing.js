@@ -10,6 +10,7 @@ import {
   Row,
   Col,
   message,
+  Modal,
 } from 'antd';
 
 import axios from 'axios';
@@ -17,7 +18,8 @@ import { UploadOutlined } from '@ant-design/icons';
 import { TOKEN_KEY } from 'constants/constants';
 import { useHistory, useParams } from 'react-router';
 import { checkValidToken } from 'utils';
-import { PICTURE_URL_PREFIX } from 'constants/constants';
+import { urlToObject } from 'utils';
+import { getBase64 } from 'utils';
 
 const { Option } = Select;
 
@@ -30,16 +32,6 @@ const formItemLayout = {
   },
 };
 
-const normFile = (e) => {
-  console.log('Upload event:', e);
-
-  if (Array.isArray(e)) {
-    return e;
-  }
-
-  return e && e.fileList;
-};
-
 const { TextArea } = Input;
 
 const EditListing = ({ formData }) => {
@@ -47,17 +39,36 @@ const EditListing = ({ formData }) => {
   const { listing_id } = useParams();
   const [form] = Form.useForm();
   const [isEditing, setIsEditing] = useState(false);
+  const [previewVisible, setPreviewVisible] = useState(false);
+  const [previewImage, setPreviewImage] = useState('');
+  const [previewTitle, setPreviewTitle] = useState('');
 
   function onChange(value) {
     console.log('changed', value);
   }
+
+  const handlePreview = async (file) => {
+    if (!file.url && !file.preview) {
+      file.preview = await getBase64(file.originFileObj);
+    }
+
+    setPreviewImage(file.url || file.preview);
+    setPreviewVisible(true);
+    setPreviewTitle(
+      file.name || file.url.substring(file.url.lastIndexOf('/') + 1)
+    );
+  };
+
+  const handleCancel = () => {
+    setPreviewVisible(false);
+  };
 
   // prefill the form with the data fetched from api
   useEffect(() => {
     form.setFieldsValue(formData);
   }, []);
 
-  const onFinish = (values) => {
+  const onFinish = async (values) => {
     console.log('Received values of form: ', values);
 
     const {
@@ -81,33 +92,43 @@ const EditListing = ({ formData }) => {
     formData.append('price', price);
     for (var i = 0; i < upload.length; ++i) {
       var key = 'picture_' + (i + 1);
-      formData.append(key, upload[i].originFileObj);
+      console.log(`uploading picture ${i + 1}`);
+      console.log(upload[i]);
+      formData.append(
+        key,
+        upload[i].originFileObj ||
+          (await urlToObject(upload[i].url, upload[i].name))
+      );
     }
 
-    console.log(formData.toString());
-
     setIsEditing(true);
-    axios
-      .put('/api/listing', formData, {
+    try {
+      const response = await axios.put('/api/listing', formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
           Authorization: `Bearer ${localStorage.getItem(TOKEN_KEY)}`,
         },
-      })
-      .then((response) => {
-        console.log(response);
-        // case1: Create success
-        if (response.status === 200) {
-          message.success('Update successful!');
-          history.push(`/listing-detail/${listing_id}`);
-        }
-      })
-      .catch((error) => {
-        // case2: Create failed
-        console.log('Update failed: ', error.message);
-        message.error('Update failed!');
-      })
-      .finally(setIsEditing(false));
+      });
+
+      console.log(response);
+      if (response.status === 200) {
+        message.success('Update successful!');
+        history.push(`/listing-detail/${listing_id}`);
+      }
+    } catch (err) {
+      console.log('Update failed: ', err.message);
+      message.error('Update failed!');
+    } finally {
+      setIsEditing(false);
+    }
+  };
+
+  const normFile = (e) => {
+    console.log('Upload event:', e);
+    if (Array.isArray(e)) {
+      return e;
+    }
+    return e && e.fileList;
   };
 
   return (
@@ -221,7 +242,8 @@ const EditListing = ({ formData }) => {
             name="photo"
             listType="picture"
             className="upload"
-            beforeUpload={() => false}
+            onPreview={handlePreview}
+            accept={'image/*'}
           >
             <Button icon={<UploadOutlined />} className="upload-btn">
               Click to upload
@@ -229,7 +251,7 @@ const EditListing = ({ formData }) => {
           </Upload>
         </Form.Item>
 
-        <div>
+        {/* <div>
           {Object.values(formData.picture_urls).map((picture_url) => (
             <img
               style={{ height: '100px', margin: '5px' }}
@@ -237,7 +259,7 @@ const EditListing = ({ formData }) => {
               alt="listing_picture"
             />
           ))}
-        </div>
+        </div> */}
 
         <Form.Item
           name="item_condition"
@@ -272,6 +294,14 @@ const EditListing = ({ formData }) => {
           </Button>
         </Form.Item>
       </Form>
+      <Modal
+        visible={previewVisible}
+        title={previewTitle}
+        footer={null}
+        onCancel={handleCancel}
+      >
+        <img alt="upload" style={{ width: '100%' }} src={previewImage} />
+      </Modal>
     </div>
   );
 };

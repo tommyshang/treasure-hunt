@@ -8,11 +8,17 @@ const Pictures = (props) => {
   const { pictureUrls } = props;
   const urls = Object.values(pictureUrls);
   const pageName = 'Listing Detail Page: Pictures: ';
+
   return (
     <div>
       <Carousel
         className="carousel"
-        //autoplay
+        // style={{
+        //   display: 'flex',
+        //   justifyContent: 'center',
+        //   alignItems: 'center',
+        // }}
+        // autoplay
         // arrows
         // nextArrow={<ArrowRightOutlined />}
         // prevArrow={<ArrowLeftOutlined />}
@@ -22,7 +28,25 @@ const Pictures = (props) => {
           console.log(
             `${pageName}Getting picture from : ${PICTURE_URL_PREFIX}${url}`
           );
-          return <Image height={500} src={`${PICTURE_URL_PREFIX}${url}`} />;
+          return (
+            <div
+              className="my-img-container"
+              style={{
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center',
+              }}
+            >
+              <Image
+                style={{
+                  display: 'flex',
+                  justifySelf: 'center',
+                  alignSelf: 'center',
+                }}
+                src={`${PICTURE_URL_PREFIX}${url}`}
+              />
+            </div>
+          );
         })}
       </Carousel>
     </div>
