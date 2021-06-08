@@ -19,6 +19,7 @@ const TextualInfo = (props) => {
         sellerName={listingInfo.seller_name}
         address={listingInfo.city_and_state}
         sellerEmail={listingInfo.seller_email}
+        sellerId = {listingInfo.seller_id}
       />
     </div>
   );
