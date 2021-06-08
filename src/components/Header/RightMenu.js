@@ -8,8 +8,8 @@ import useLogout from 'hooks/use-logout';
 const { Item } = Menu;
 
 const navBarSignUpButtonStyle = {
-  background: '#00a9cd',
-  borderColor: '#00a9cd',
+  background: '#1890ff',
+  borderColor: '#1890ff',
 };
 
 const RightMenu = () => {

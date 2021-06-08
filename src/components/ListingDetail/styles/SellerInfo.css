@@ -20,8 +20,8 @@
 }
 
 .contact-btn {
-  color: #00a9cd;
-  border-color: #00a9cd;
+  color: #fff;
+  background: #1890ff;
 }
 button[ant-click-animating-without-extra-node]:after {
   border: 0 none;
