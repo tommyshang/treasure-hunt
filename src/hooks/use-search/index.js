@@ -8,15 +8,16 @@ const useSearch = () => {
     // define the request
     const url = `/api/search`;
 
-    console.log(parameters);
+    // console.log(parameters);
 
     const returnObj = {};
 
     setIsSearching(true);
     try {
       const response = await axios.get(url, {
-        params: parameters,
+        params: {keyword:parameters},
       });
+
       if (response.status === 200) {
         returnObj.searchResults = response.data;
       }

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Affix, Card, Col, Layout, List, Row, message } from 'antd';
 
-import { PICTURE_URL_PREFIX } from 'constants/constants';
+import { PICTURE_URL_PREFIX } from '../../constants/constants';
 import './SavedListings.style.css';
 import { useFetchSavedListings } from 'hooks';
 import { useHistory } from 'react-router';
