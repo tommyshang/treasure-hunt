@@ -33,16 +33,12 @@ const formItemLayout = {
 
 const { TextArea } = Input;
 
-const CreateListing = (props) => {
+const CreateListing = () => {
   const history = useHistory();
   const [isCreating, setIsCreating] = useState(false);
   const [previewVisible, setPreviewVisible] = useState(false);
   const [previewImage, setPreviewImage] = useState('');
   const [previewTitle, setPreviewTitle] = useState('');
-
-  const onChange = (value) => {
-    console.log('changed', value);
-  };
 
   const handlePreview = async (file) => {
     if (!file.url && !file.preview) {
@@ -86,8 +82,6 @@ const CreateListing = (props) => {
       formData.append(key, upload[i].originFileObj);
     }
 
-    console.log(formData.toString());
-
     setIsCreating(true);
 
     try {
@@ -119,6 +113,7 @@ const CreateListing = (props) => {
     }
     return e && e.fileList;
   };
+
   return (
     <>
       <Form
@@ -126,6 +121,7 @@ const CreateListing = (props) => {
         {...formItemLayout}
         onFinish={onFinish}
         className="form-box"
+        scrollToFirstError
       >
         <Form.Item
           name="category"
@@ -204,7 +200,6 @@ const CreateListing = (props) => {
               `$ ${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')
             }
             parser={(value) => value.replace(/\$\s?|(,*)/g, '')}
-            onChange={onChange}
             className="input-num"
             formNoValidate
           />
@@ -231,7 +226,7 @@ const CreateListing = (props) => {
             listType="picture"
             className="upload"
             onPreview={handlePreview}
-            beforeUpload={() => false}
+            accept={'image/*'}
           >
             <Button icon={<UploadOutlined />} className="upload-btn">
               Click to upload

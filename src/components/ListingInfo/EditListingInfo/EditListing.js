@@ -243,7 +243,7 @@ const EditListing = ({ formData }) => {
             listType="picture"
             className="upload"
             onPreview={handlePreview}
-            beforeUpload={() => false}
+            accept={'image/*'}
           >
             <Button icon={<UploadOutlined />} className="upload-btn">
               Click to upload
