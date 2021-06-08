@@ -22,7 +22,7 @@ const Pictures = (props) => {
           console.log(
             `${pageName}Getting picture from : ${PICTURE_URL_PREFIX}${url}`
           );
-          return <Image height={500} src={`${PICTURE_URL_PREFIX}${url}`} />;
+          return <Image height={500} width={700} src={`${PICTURE_URL_PREFIX}${url}`} />;
         })}
       </Carousel>
     </div>

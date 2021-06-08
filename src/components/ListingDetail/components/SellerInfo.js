@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
 import { Modal, Row, Col, Button, Divider, Avatar, Space } from 'antd';
 import { UserOutlined } from '@ant-design/icons';
+import { checkValidToken } from 'utils';
 import '../styles/SellerInfo.css';
 
 const SellerInfo = (props) => {
-  const { sellerName, address, sellerEmail } = props;
+  const { sellerName, address, sellerEmail,sellerId } = props;
 
   const [isModalVisible, setIsModalVisible] = useState(false);
   const showModal = () => {
@@ -45,14 +46,14 @@ const SellerInfo = (props) => {
           <Row span={24}>
             <Col span={12}>{sellerName}</Col>
             <Col span={12} align="right">
-              <Button
+              {checkValidToken() === sellerId ?  (<div/>):(<Button
                 className="contact-btn"
                 type="primary"
                 shape="round"
                 onClick={showModal}
               >
                 Send a message
-              </Button>
+              </Button>) }
             </Col>
           </Row>
           <Row span={24}>Location: {address}</Row>
