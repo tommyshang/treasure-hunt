@@ -193,9 +193,10 @@ const Overview = (props) => {
           ) : (
             <Button
               size="large"
+              loading={isSaving || isUnsaving}
               className="star"
               icon={
-                isSave ? ( //isSave for testing
+                isSave ? ( 
                   <StarFilled style={{ color: 'black' }} />
                 ) : (
                   <StarOutlined style={{ color: 'black' }} />
