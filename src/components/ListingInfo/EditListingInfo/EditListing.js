@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   Input,
   Form,
@@ -46,6 +46,7 @@ const EditListing = ({ formData }) => {
   const history = useHistory();
   const { listing_id } = useParams();
   const [form] = Form.useForm();
+  const [isEditing, setIsEditing] = useState(false);
 
   function onChange(value) {
     console.log('changed', value);
@@ -85,6 +86,7 @@ const EditListing = ({ formData }) => {
 
     console.log(formData.toString());
 
+    setIsEditing(true);
     axios
       .put('/api/listing', formData, {
         headers: {
@@ -94,17 +96,18 @@ const EditListing = ({ formData }) => {
       })
       .then((response) => {
         console.log(response);
-        // case1: Pubish success
+        // case1: Create success
         if (response.status === 200) {
           message.success('Update successful!');
           history.push(`/listing-detail/${listing_id}`);
         }
       })
       .catch((error) => {
-        // case2: Publish failed
+        // case2: Create failed
         console.log('Update failed: ', error.message);
         message.error('Update failed!');
-      });
+      })
+      .finally(setIsEditing(false));
   };
 
   return (
@@ -259,8 +262,13 @@ const EditListing = ({ formData }) => {
         </Form.Item>
 
         <Form.Item>
-          <Button type="primary" htmlType="submit" className="confirm-btn">
-            UPDATE
+          <Button
+            loading={isEditing}
+            type="primary"
+            htmlType="submit"
+            className="confirm-btn"
+          >
+            {!isEditing && 'UPDATE'}
           </Button>
         </Form.Item>
       </Form>

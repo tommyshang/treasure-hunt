@@ -19,11 +19,12 @@ import { checkValidToken } from 'utils';
 
 import { TOKEN_KEY } from 'constants/constants';
 import { Loading } from 'components';
+import { formatPrice } from 'utils';
+import axios from 'axios';
 
 const Overview = (props) => {
   const pageName = 'Listing Detail Page: Overview: ';
   const { listingInfo } = props;
-
   const history = useHistory();
 
   const listingId = listingInfo.listing_id;
@@ -60,12 +61,9 @@ const Overview = (props) => {
 
   const checkIsSeller = () => {
     if (userId !== null) {
-      console.log(userId);
       if (userId === sellerId) {
-        console.log('Seller Listing Detail Page');
         setIsSeller(true);
       } else {
-        console.log('Buyer Listing Detail Page');
         setIsSeller(false);
       }
     }
@@ -73,25 +71,23 @@ const Overview = (props) => {
 
   useEffect(() => {
     checkInSaveListing();
-  }, [isLogIn]);
+  }, [listingId]);
 
   // fetch save listings and check if current listing/item is in fetched listings
   const checkInSaveListing = async () => {
     const userId = checkValidToken();
-    if (userId === null) {
+    if (userId === null || listingId === undefined) {
       return;
     }
-    console.log(`${pageName}Fetching My Listings`);
     const { listings, error } = await fetchSavedListings();
     if (error !== undefined) {
-      console.log(`${pageName}Failed to get user saved listings`);
       message.error(`${pageName}Failed to get user saved listings`);
     } else {
-      for (const item in listings) {
-        if (listingId === item.listing_id) {
-          setIsSave(true);
-        }
-      }
+      const match = (item) => item.listing_id === listingId;
+
+      // setIsSave(listings.some((item) => item.listing_id === listingId));
+      const bool = listings.some(match);
+      setIsSave(bool);
     }
   };
 
@@ -116,15 +112,21 @@ const Overview = (props) => {
     if (error !== undefined) {
       message.error(`Save listing failed`);
     } else {
-      setIsSave(!isSave);
+      message.success(`Successfully saved`);
+      setIsSave(true);
     }
   };
+
   const unsave = async () => {
-    const { error } = await unsaveListing(checkValidToken(), listingId);
+    const { error } = await unsaveListing({
+      userId: checkValidToken(),
+      listingId,
+    });
     if (error !== undefined) {
       message.error(`Unsave listing failed`);
     } else {
-      setIsSave(!isSave);
+      message.success(`Successfully removed from saved`);
+      setIsSave(false);
     }
   };
 
@@ -146,11 +148,6 @@ const Overview = (props) => {
       history.replace('/my-listings');
     }
   };
-
-  const priceFormatter = new Intl.NumberFormat('en-US', {
-    style: 'currency',
-    currency: 'USD',
-  });
 
   return (
     <div>
@@ -198,7 +195,7 @@ const Overview = (props) => {
               size="large"
               className="star"
               icon={
-                isSave === true ? ( //isSave for testing
+                isSave ? ( //isSave for testing
                   <StarFilled style={{ color: 'black' }} />
                 ) : (
                   <StarOutlined style={{ color: 'black' }} />
@@ -210,7 +207,7 @@ const Overview = (props) => {
         </Col>
       </Row>
       <Row className="price">
-        <div>{priceFormatter.format(listingInfo.price)}</div>
+        <div>{formatPrice(listingInfo.price)}</div>
       </Row>
     </div>
   );

@@ -14,6 +14,7 @@
 @import 'components/Authentication/SplitLayout/SplitLayout.css';
 @import 'components/Authentication/Login/Login.css';
 @import 'components/Authentication/SignUp/SignUp.css';
+@import 'components/Footer/AppFooter.css';
 
 body {
   margin: 0;
@@ -35,4 +36,8 @@ code {
 
 .ant-menu-horizontal {
   border-bottom: 0;
+}
+
+.ant-list-vertical .ant-list-item-meta {
+  margin-bottom: 10px;
 }

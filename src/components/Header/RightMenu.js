@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useLocation } from 'react-router-dom';
 
 import { Menu, Button, message } from 'antd';
 import { checkValidToken } from 'utils';
@@ -13,6 +13,7 @@ const navBarSignUpButtonStyle = {
 };
 
 const RightMenu = () => {
+  const location = useLocation();
   const [signedIn, setSignedIn] = useState(false);
   const { isLoggingOut, logout } = useLogout();
 
@@ -54,7 +55,7 @@ const RightMenu = () => {
         <>
           <Item key="/signup">
             <NavLink
-              to="/signup"
+              to={{ pathname: '/signup', from: `${location.pathname}` }}
               activeClassName="signUp-active-class"
               className="signUp-class"
             >
@@ -66,7 +67,7 @@ const RightMenu = () => {
 
           <Item key="/login">
             <NavLink
-              to="/login"
+              to={{ pathname: '/login', from: `${location.pathname}` }}
               activeClassName="signIn-active-class"
               className="signIn-class"
             >

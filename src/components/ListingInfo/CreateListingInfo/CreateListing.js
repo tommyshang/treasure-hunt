@@ -1,3 +1,4 @@
+import React, { useState } from 'react';
 import {
   Input,
   Form,
@@ -10,12 +11,12 @@ import {
   Col,
   message,
 } from 'antd';
-
 import axios from 'axios';
+import { useHistory } from 'react-router';
+
 import { UploadOutlined } from '@ant-design/icons';
 import { TOKEN_KEY } from 'constants/constants';
 import { checkValidToken } from 'utils';
-import { useHistory } from 'react-router';
 
 const { Option } = Select;
 
@@ -40,6 +41,7 @@ const { TextArea } = Input;
 
 const CreateListing = (props) => {
   const history = useHistory();
+  const [isCreating, setIsCreating] = useState(false);
   function onChange(value) {
     console.log('changed', value);
   }
@@ -72,6 +74,7 @@ const CreateListing = (props) => {
 
     console.log(formData.toString());
 
+    setIsCreating(true);
     axios
       .post('/api/listing', formData, {
         headers: {
@@ -83,16 +86,17 @@ const CreateListing = (props) => {
         console.log(response);
         // case1: Pubish success
         if (response.status === 201) {
-          message.success('Publish successful!');
+          message.success('Successfully created new listing!');
           console.log(`Bring me to ${response.data}`);
           history.push(`/listing-detail/${response.data}`);
         }
       })
       .catch((error) => {
-        // case2: Publish failed
-        console.log('Publish failed: ', error.message);
-        message.error('Publish failed!');
-      });
+        // case2: Create failed
+        console.log('Failed to create new listing', error.message);
+        message.error('Failed to create new listing');
+      })
+      .finally(setIsCreating(false));
   };
 
   return (
@@ -236,8 +240,13 @@ const CreateListing = (props) => {
       </Form.Item>
 
       <Form.Item>
-        <Button type="primary" htmlType="submit" className="confirm-btn">
-          PUBLISH
+        <Button
+          loading={isCreating}
+          type="primary"
+          htmlType="submit"
+          className="confirm-btn"
+        >
+          {!isCreating && 'CREATE'}
         </Button>
       </Form.Item>
     </Form>

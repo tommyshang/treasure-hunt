@@ -1,15 +1,29 @@
-import React from 'react';
-import { Affix, Row, Col, Layout } from 'antd';
+import React, { useEffect } from 'react';
+import { Affix, Row, Col, Layout, message } from 'antd';
 
 import CreateListing from './CreateListingInfo/CreateListing';
 import ListingImage from './CreateListingImage/ListingImage';
 import Headline from './Headline/Headline';
 import TopNavBar from 'components/Header/TopNavBar';
 import AppFooter from 'components/Footer/AppFooter';
+import { useHistory } from 'react-router';
+import { checkValidToken } from 'utils';
 
 const { Content, Footer } = Layout;
 
 function CreateListingInfo() {
+  const history = useHistory();
+
+  useEffect(() => {
+    if (checkValidToken() === null) {
+      message.info('Please login before you create a listing');
+      history.replace({
+        pathname: '/login',
+        from: '/sell',
+      });
+    }
+  }, []);
+
   return (
     <div className="CreateListingInfo">
       <Layout style={{ minHeight: '100vh' }}>

@@ -6,19 +6,23 @@ import Logo from 'assets/logos/th_logo.svg';
 
 import SplitLayout from '../SplitLayout/SplitLayout';
 import SignUpPhoto from 'assets/images/signup_img.jpg';
-import { Link, useHistory } from 'react-router-dom';
+import { Link, useHistory, useLocation } from 'react-router-dom';
 import { useSignup } from 'hooks';
 
 const SignUp = () => {
   const { isSigningup, signup } = useSignup();
   const history = useHistory();
+  const location = useLocation();
 
   const onFinish = async (userData) => {
     const response = await signup(userData);
 
     if (response === 201) {
       message.success('Successfully signed up, please login');
-      history.replace('/login');
+      history.replace({
+        pathname: '/login',
+        from: location.from || '/',
+      });
     } else if (response === 409) {
       message.error(`Username ${userData.username} already taken`);
     } else {
@@ -197,18 +201,18 @@ const SignUp = () => {
 
               <Form.Item>
                 <Button
-                  disabled={isSigningup}
+                  loading={isSigningup}
                   id="signup-button"
                   block
                   htmlType="submit"
                 >
-                  {`${isSigningup ? 'Signing' : 'Sign'} up`}
+                  {!isSigningup && 'Sign Up'}
                 </Button>
               </Form.Item>
 
               <div>
                 <span>Already have an Account? </span>
-                <Link to="/login" replace>
+                <Link to={{ pathname: '/login', from: location.from }} replace>
                   Login
                 </Link>
               </div>

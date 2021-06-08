@@ -11,5 +11,13 @@
 }
 
 .my-listings-content {
+  padding-top: 15px;
   padding-bottom: 25px;
+}
+
+.listing-description {
+  width: 400px;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
 }

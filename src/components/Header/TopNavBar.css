@@ -5,7 +5,7 @@
 }
 
 .Top-nav-bar {
-  height: 70px;
+  height: max-content;
   width: 100vw;
   background-color: white;
   border-bottom: 2px solid #f7f7f7;
