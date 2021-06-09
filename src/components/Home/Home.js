@@ -9,6 +9,7 @@ import SubNavBar from '../Header/SubNavBar';
 import HomeFlaunt from './HomeFlaunt';
 import AppFooter from '../Footer/AppFooter';
 
+
 const { Content, Footer } = Layout;
 
 const { Search } = Input;
@@ -17,6 +18,8 @@ const onSearch = (value) => console.log(value);
 const homeLayoutStyle = {
   background: 'white',
 };
+
+
 
 class Home extends Component {
   render() {

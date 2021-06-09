@@ -1,6 +1,8 @@
-import React, { Component } from 'react';
+import React, { useState, useEffect } from 'react';
 
 import { List, Card, Typography } from 'antd';
+import { Link, useHistory } from 'react-router-dom';
+import { useSearch } from 'hooks';
 
 import furniture1 from 'assets/images/furniture1.jpg';
 import car1 from 'assets/images/car1.jpg';
@@ -50,44 +52,50 @@ const shopCategoryHeadStyle = {
   borderBottom: '0px',
 };
 
-class ShopCategory extends Component {
-  render() {
-    return (
-      <Card
-        headStyle={shopCategoryHeadStyle}
-        title={
-          <Title level={2} style={{ color: '#142264' }}>
-            SHOP CATEGORY
-          </Title>
-        }
-        bordered={false}
-      >
-        <List
-          grid={{
-            gutter: 16,
-            xs: 1,
-            sm: 2,
-            md: 4,
-            lg: 4,
-            xl: 6,
-            xxl: 3,
-          }}
-          dataSource={data}
-          renderItem={(item) => (
-            <List.Item>
-              <Card
-                bordered={false}
-                hoverable
-                cover={<img alt={item.alt} src={item.src} />}
-              >
-                <Meta title={item.title} />
-              </Card>
-            </List.Item>
-          )}
-        />
-      </Card>
-    );
-  }
-}
+const ShopCategory = () => {
+  const history = useHistory();
+
+  return (
+    <Card
+      headStyle={shopCategoryHeadStyle}
+      title={
+        <Title level={2} style={{ color: '#142264' }}>
+          SHOP CATEGORY
+        </Title>
+      }
+      bordered={false}
+    >
+      <List
+        grid={{
+          gutter: 16,
+          xs: 1,
+          sm: 2,
+          md: 3,
+          lg: 4,
+          xl: 6,
+          xxl: 6,
+        }}
+        dataSource={data}
+        renderItem={(item, id) => (
+          <List.Item>
+            <Card
+              bordered={false}
+              hoverable
+              onClick={() =>
+                history.push({
+                  pathname: 'items',
+                  search: `?category=${item.title}`,
+                })
+              }
+              cover={<img alt={item.alt} src={item.src} />}
+            >
+              <Meta title={item.title} />
+            </Card>
+          </List.Item>
+        )}
+      />
+    </Card>
+  );
+};
 
 export default ShopCategory;

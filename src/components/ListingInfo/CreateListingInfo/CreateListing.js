@@ -10,6 +10,7 @@ import {
   Row,
   Col,
   message,
+  Modal,
 } from 'antd';
 import axios from 'axios';
 import { useHistory } from 'react-router';
@@ -17,6 +18,7 @@ import { useHistory } from 'react-router';
 import { UploadOutlined } from '@ant-design/icons';
 import { TOKEN_KEY } from 'constants/constants';
 import { checkValidToken } from 'utils';
+import { getBase64 } from 'utils';
 
 const { Option } = Select;
 
@@ -29,24 +31,32 @@ const formItemLayout = {
   },
 };
 
-const normFile = (e) => {
-  console.log('Upload event:', e);
-  if (Array.isArray(e)) {
-    return e;
-  }
-  return e && e.fileList;
-};
-
 const { TextArea } = Input;
 
-const CreateListing = (props) => {
+const CreateListing = () => {
   const history = useHistory();
   const [isCreating, setIsCreating] = useState(false);
-  function onChange(value) {
-    console.log('changed', value);
-  }
+  const [previewVisible, setPreviewVisible] = useState(false);
+  const [previewImage, setPreviewImage] = useState('');
+  const [previewTitle, setPreviewTitle] = useState('');
 
-  const onFinish = (values) => {
+  const handlePreview = async (file) => {
+    if (!file.url && !file.preview) {
+      file.preview = await getBase64(file.originFileObj);
+    }
+
+    setPreviewImage(file.url || file.preview);
+    setPreviewVisible(true);
+    setPreviewTitle(
+      file.name || file.url.substring(file.url.lastIndexOf('/') + 1)
+    );
+  };
+
+  const handleCancel = () => {
+    setPreviewVisible(false);
+  };
+
+  const onFinish = async (values) => {
     console.log('Received values of form: ', values);
 
     const {
@@ -72,184 +82,200 @@ const CreateListing = (props) => {
       formData.append(key, upload[i].originFileObj);
     }
 
-    console.log(formData.toString());
-
     setIsCreating(true);
-    axios
-      .post('/api/listing', formData, {
+
+    try {
+      const response = await axios.post('/api/listing', formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
           Authorization: `Bearer ${localStorage.getItem(TOKEN_KEY)}`,
         },
-      })
-      .then((response) => {
-        console.log(response);
-        // case1: Pubish success
-        if (response.status === 201) {
-          message.success('Successfully created new listing!');
-          console.log(`Bring me to ${response.data}`);
-          history.push(`/listing-detail/${response.data}`);
-        }
-      })
-      .catch((error) => {
-        // case2: Create failed
-        console.log('Failed to create new listing', error.message);
-        message.error('Failed to create new listing');
-      })
-      .finally(setIsCreating(false));
+      });
+
+      console.log(response);
+      if (response.status === 201) {
+        message.success('Successfully created new listing!');
+        console.log(`Bring me to ${response.data}`);
+        history.push(`/listing-detail/${response.data}`);
+      }
+    } catch (err) {
+      console.log('Failed to create new listing', err.message);
+      message.error('Failed to create new listing');
+    } finally {
+      setIsCreating(false);
+    }
+  };
+
+  const normFile = (e) => {
+    console.log('Upload event:', e);
+    if (Array.isArray(e)) {
+      return e;
+    }
+    return e && e.fileList;
   };
 
   return (
-    <Form
-      name="validate_other"
-      {...formItemLayout}
-      onFinish={onFinish}
-      className="form-box"
-    >
-      <Form.Item
-        name="category"
-        label="CATEGORY"
-        rules={[
-          {
-            required: true,
-            message: 'Please select category!',
-          },
-        ]}
+    <>
+      <Form
+        name="validate_other"
+        {...formItemLayout}
+        onFinish={onFinish}
+        className="form-box"
+        scrollToFirstError
       >
-        <Radio.Group>
-          <Row>
-            <Col span={7}>
-              <Radio value={'Cars'} style={{ lineHeight: '32px' }}>
-                Cars
-              </Radio>
-            </Col>
-            <Col span={10}>
-              <Radio
-                value={'Exercise Equipments'}
-                style={{ lineHeight: '32px' }}
-              >
-                Exercise Equipments
-              </Radio>
-            </Col>
-            <Col span={7}>
-              <Radio value={'Furniture'} style={{ lineHeight: '32px' }}>
-                Furniture
-              </Radio>
-            </Col>
-            <Col span={7}>
-              <Radio value={'Books'} style={{ lineHeight: '32px' }}>
-                Books
-              </Radio>
-            </Col>
-            <Col span={10}>
-              <Radio value={'Apparels'} style={{ lineHeight: '32px' }}>
-                Apparels
-              </Radio>
-            </Col>
-            <Col span={7}>
-              <Radio value={'Electronics'} style={{ lineHeight: '32px' }}>
-                Electronics
-              </Radio>
-            </Col>
-          </Row>
-        </Radio.Group>
-      </Form.Item>
-
-      <Form.Item
-        name="title"
-        label="TITLE"
-        rules={[
-          {
-            required: true,
-            message: 'Please input the title!',
-          },
-        ]}
-      >
-        <Input className="title-input" />
-      </Form.Item>
-
-      <Form.Item
-        name="price"
-        label="PRICE"
-        rules={[
-          {
-            required: true,
-            message: 'Please input the price!',
-          },
-        ]}
-      >
-        <InputNumber
-          formatter={(value) =>
-            `$ ${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')
-          }
-          parser={(value) => value.replace(/\$\s?|(,*)/g, '')}
-          onChange={onChange}
-          className="input-num"
-          formNoValidate
-        />
-      </Form.Item>
-
-      <Form.Item name="brand" label="BRAND">
-        <Input className="brand-input" />
-      </Form.Item>
-
-      <Form.Item
-        name="upload"
-        label="ADD PHOTOS"
-        valuePropName="fileList"
-        getValueFromEvent={normFile}
-        rules={[
-          {
-            required: true,
-            message: 'Please upload the photos!',
-          },
-        ]}
-      >
-        <Upload
-          name="photo"
-          listType="picture"
-          className="upload"
-          beforeUpload={() => false}
+        <Form.Item
+          name="category"
+          label="CATEGORY"
+          rules={[
+            {
+              required: true,
+              message: 'Please select category!',
+            },
+          ]}
         >
-          <Button icon={<UploadOutlined />} className="upload-btn">
-            Click to upload
+          <Radio.Group>
+            <Row>
+              <Col span={7}>
+                <Radio value={'Cars'} style={{ lineHeight: '32px' }}>
+                  Cars
+                </Radio>
+              </Col>
+              <Col span={10}>
+                <Radio
+                  value={'Exercise Equipments'}
+                  style={{ lineHeight: '32px' }}
+                >
+                  Exercise Equipments
+                </Radio>
+              </Col>
+              <Col span={7}>
+                <Radio value={'Furniture'} style={{ lineHeight: '32px' }}>
+                  Furniture
+                </Radio>
+              </Col>
+              <Col span={7}>
+                <Radio value={'Books'} style={{ lineHeight: '32px' }}>
+                  Books
+                </Radio>
+              </Col>
+              <Col span={10}>
+                <Radio value={'Apparels'} style={{ lineHeight: '32px' }}>
+                  Apparels
+                </Radio>
+              </Col>
+              <Col span={7}>
+                <Radio value={'Electronics'} style={{ lineHeight: '32px' }}>
+                  Electronics
+                </Radio>
+              </Col>
+            </Row>
+          </Radio.Group>
+        </Form.Item>
+
+        <Form.Item
+          name="title"
+          label="TITLE"
+          rules={[
+            {
+              required: true,
+              message: 'Please input the title!',
+            },
+          ]}
+        >
+          <Input className="title-input" />
+        </Form.Item>
+
+        <Form.Item
+          name="price"
+          label="PRICE"
+          rules={[
+            {
+              required: true,
+              message: 'Please input the price!',
+            },
+          ]}
+        >
+          <InputNumber
+            formatter={(value) =>
+              `$ ${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+            }
+            parser={(value) => value.replace(/\$\s?|(,*)/g, '')}
+            className="input-num"
+            formNoValidate
+          />
+        </Form.Item>
+
+        <Form.Item name="brand" label="BRAND">
+          <Input className="brand-input" />
+        </Form.Item>
+
+        <Form.Item
+          name="upload"
+          label="ADD PHOTOS"
+          valuePropName="fileList"
+          getValueFromEvent={normFile}
+          rules={[
+            {
+              required: true,
+              message: 'Please upload the photos!',
+            },
+          ]}
+        >
+          <Upload
+            name="photo"
+            listType="picture"
+            className="upload"
+            onPreview={handlePreview}
+            accept={'image/*'}
+          >
+            <Button icon={<UploadOutlined />} className="upload-btn">
+              Click to upload
+            </Button>
+          </Upload>
+        </Form.Item>
+
+        <Form.Item
+          name="item_condition"
+          label="CONDITION"
+          rules={[
+            {
+              required: true,
+              message: 'Please select condition!',
+            },
+          ]}
+        >
+          <Select bordered={false} className="select-input">
+            <Option value="New">New</Option>
+            <Option value="Used - Like new">Used - Like new</Option>
+            <Option value="Used - Good">Used - Good</Option>
+            <Option value="Used - Fair">Used - Fair</Option>
+          </Select>
+        </Form.Item>
+
+        <Form.Item name="description" label="DESCRIPTION">
+          <TextArea rows={4} className="textarea-input" />
+        </Form.Item>
+
+        <Form.Item>
+          <Button
+            loading={isCreating}
+            type="primary"
+            htmlType="submit"
+            className="confirm-btn"
+          >
+            {!isCreating && 'CREATE'}
           </Button>
-        </Upload>
-      </Form.Item>
-
-      <Form.Item
-        name="item_condition"
-        label="CONDITION"
-        rules={[
-          {
-            required: true,
-            message: 'Please select condition!',
-          },
-        ]}
+        </Form.Item>
+      </Form>
+      <Modal
+        visible={previewVisible}
+        title={previewTitle}
+        footer={null}
+        onCancel={handleCancel}
       >
-        <Select bordered={false} className="select-input">
-          <Option value="New">New</Option>
-          <Option value="Used - Like new">Used - Like new</Option>
-          <Option value="Used - Good">Used - Good</Option>
-          <Option value="Used - Fair">Used - Fair</Option>
-        </Select>
-      </Form.Item>
-
-      <Form.Item name="description" label="DESCRIPTION">
-        <TextArea rows={4} className="textarea-input" />
-      </Form.Item>
-
-      <Form.Item>
-        <Button
-          loading={isCreating}
-          type="primary"
-          htmlType="submit"
-          className="confirm-btn"
-        >
-          {!isCreating && 'CREATE'}
-        </Button>
-      </Form.Item>
-    </Form>
+        <img alt="upload" style={{ width: '100%' }} src={previewImage} />
+      </Modal>
+    </>
   );
 };
 

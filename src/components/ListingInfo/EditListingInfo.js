@@ -10,8 +10,10 @@ import TopNavBar from 'components/Header/TopNavBar';
 import { useHistory, useParams } from 'react-router';
 import { checkValidToken } from 'utils';
 import AppFooter from 'components/Footer/AppFooter';
+import { buildFullPictureUrl } from 'utils';
 
 const { Content, Footer } = Layout;
+
 const EditListingInfo = () => {
   const [isFetching, setIsFetching] = useState(true);
   const [formData, setFormData] = useState({});
@@ -35,7 +37,23 @@ const EditListingInfo = () => {
           message.error('You cannot edit listings that are not yours');
           history.replace('/');
         } else {
-          setFormData(res.data);
+          const rawformData = res.data;
+          // convert picture urls
+          console.log(rawformData);
+          const originalPictures = Object.entries(rawformData.picture_urls).map(
+            ([key, value]) => {
+              return {
+                uid: key,
+                name: key.slice(13),
+                status: 'done',
+                url: buildFullPictureUrl(value),
+              };
+            }
+          );
+
+          console.log(originalPictures);
+          rawformData.upload = originalPictures;
+          setFormData(rawformData);
           setIsFetching(false);
         }
       })
