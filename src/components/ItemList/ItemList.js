@@ -1,39 +1,91 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import { Layout, Row, Col, Menu, Dropdown, Button, Space, Affix } from 'antd';
+import {
+  Layout,
+  Row,
+  Col,
+  Menu,
+  Dropdown,
+  Button,
+  Space,
+  Affix,
+  message,
+  Form,
+} from 'antd';
 import Item from './Item/Item';
 import GoogleMap from './Map/GoogleMap';
-import Axios from 'axios';
 import Moment from 'moment';
+import { useHistory } from 'react-router-dom';
+import queryString, { stringify } from 'query-string';
 
+import { useSearch } from 'hooks';
 import './ItemList.style.css';
 import { FilterOutlined, OrderedListOutlined } from '@ant-design/icons';
 import TopNavBar from 'components/Header/TopNavBar';
+import AppFooter from 'components/Footer/AppFooter';
+import { Loading } from 'components';
+import SearchForm from './SearchForm/SearchForm';
+import { getLatLongFromZip } from 'utils';
 
-const { Header, Content } = Layout;
+const { Content, Footer, Sider } = Layout;
 
-const filterMenu = (
-  <Menu>
-    <Menu.Item>Cars</Menu.Item>
-    <Menu.Item>Exercise Equipments</Menu.Item>
-    <Menu.Item>Furniture</Menu.Item>
-    <Menu.Item>Electronics</Menu.Item>
-    <Menu.Item>Books</Menu.Item>
-    <Menu.Item>Apparels</Menu.Item>
-  </Menu>
-);
-
-const ItemList = () => {
-  const [items, setItems] = useState([]);
+const ItemList = ({ location }) => {
+  const history = useHistory();
+  const [items, setItems] = useState(undefined);
   const [itemData, setItemData] = useState({});
-  const changData = useCallback((para) => setItemData(para), []);
+  const [centerLatitude, setCenterLatitude] = useState(40.75);
+  const [centerLongitude, setCenterLongitude] = useState(-73.94);
+  const [collapsed, setCollapsed] = useState(false);
+  const { isSearching, search } = useSearch();
+  const [searchFormData, setSearchFormData] = useState(undefined);
+  const changeData = useCallback((para) => setItemData(para), []);
+
+  const onCollapse = (collapsed) => {
+    setCollapsed({ collapsed });
+  };
+
+  const getSearchParams = () => {
+    return queryString.parse(location.search);
+  };
+
+  const fetch = async (parameters) => {
+    const { searchResults, error } = await search(parameters);
+
+    if (error !== undefined) {
+      message.error('Search failed!');
+    } else {
+      console.log(searchResults);
+      // If parameters has lat/long, set map center to lat/long
+      if (parameters.latitude && parameters.longitude) {
+        console.log(
+          `Setting map lat to ${parameters.latitude}and map long to ${parameters.longitude}`
+        );
+        setCenterLatitude(parameters.latitude);
+        setCenterLongitude(parameters.longitude);
+      }
+      setItems(searchResults);
+    }
+  };
 
   useEffect(() => {
-    Axios.get('https://mocki.io/v1/309b90ed-ae4d-4ac5-9636-1e89777c8644')
-      .then((res) => {
-        setItems(res.data.product);
-      })
-      .catch((e) => console.log(e));
-  }, []);
+    const parameters = getSearchParams();
+    console.log(parameters);
+    if (parameters.keyword || parameters.category) {
+      console.log('fetching with', parameters);
+      fetch(parameters);
+    }
+  }, [location.search]);
+
+  useEffect(() => {
+    if (searchFormData === undefined) {
+      return;
+    }
+
+    history.push({
+      pathname: '/items',
+      search: queryString.stringify(searchFormData),
+    });
+    // fetch(searchFormData);
+  }, [searchFormData]);
 
   const sortLowToHigh = () => {
     const sorted = [...items].sort((a, b) => {
@@ -54,8 +106,8 @@ const ItemList = () => {
   const sortNewest = () => {
     const sorted = [...items].sort((a, b) => {
       return (
-        new Moment(a.create.substr(0, 10)).format('YYYYMMDD') -
-        new Moment(b.create.substr(0, 10)).format('YYYYMMDD')
+        new Moment(a?.date.substr(0, 10)).format('YYYYMMDD') -
+        new Moment(b?.date.substr(0, 10)).format('YYYYMMDD')
       );
     });
 
@@ -78,39 +130,102 @@ const ItemList = () => {
 
   return (
     <div className="items-page">
-      <Layout>
+      <Layout style={{ minHeight: '100vh' }}>
         <Affix offsetTop={0} className="app__affix-header">
           <TopNavBar />
         </Affix>
-        <Content className="item-list-row">
-          <Row>
-            <Col span={14} className="item-list">
-              <h1>Item near you</h1>
-              <div className="item-icons">
-                <Space direction="vertical" className="filter">
-                  <Space wrap>
-                    <Dropdown overlay={menu} placement="bottomCenter">
-                      <Button icon={<OrderedListOutlined />}>Sort by</Button>
-                    </Dropdown>
-                    <Dropdown overlay={filterMenu} placement="bottomCenter">
-                      <Button icon={<FilterOutlined />}>Filter</Button>
-                    </Dropdown>
-                  </Space>
-                </Space>
-              </div>
-
-              <div className="items">
-                <Item Products={items} changeData={changData} />
-              </div>
-            </Col>
-            <Col span={10} className="map-container">
-              <GoogleMap
-                latitude={itemData.latitude}
-                longitude={itemData.longitude}
+        <Layout style={{ minHeight: '100vh' }}>
+          <Sider
+            collapsedWidth="0"
+            theme="light"
+            collapsible
+            style={{ borderRight: '1px solid #f0f0f0' }}
+          >
+            <SearchForm setSearchFormData={setSearchFormData} />
+          </Sider>
+          <Content className="item-list-row">
+            {isSearching ? (
+              <Loading
+                customStyle={{
+                  position: 'fixed',
+                  top: '50%',
+                  left: '50%',
+                  transform: 'translate(-50%, -50%)',
+                }}
               />
-            </Col>
-          </Row>
-        </Content>
+            ) : (
+              <Row>
+                <Col span={15} className="item-list">
+                  {!items ? (
+                    <div
+                      style={{
+                        fontSize: '1.2em',
+                        textAlign: 'center',
+                        width: '100%',
+                        height: '100vh',
+                        marginTop: '10em',
+                      }}
+                    >
+                      Try Our Search!
+                    </div>
+                  ) : items.length !== 0 ? (
+                    <div>
+                      <h1>Listings Near You</h1>
+                      <div className="item-icons">
+                        <Space direction="vertical" className="filter">
+                          <Space wrap>
+                            <Dropdown overlay={menu} placement="bottomCenter">
+                              <Button icon={<OrderedListOutlined />}>
+                                Sort by
+                              </Button>
+                            </Dropdown>
+                          </Space>
+                        </Space>
+                      </div>
+
+                      <div className="items">
+                        <Item
+                          Products={items}
+                          changeData={changeData}
+                          itemData={itemData}
+                        />
+                      </div>
+                    </div>
+                  ) : (
+                    <div
+                      style={{
+                        fontSize: '1.2em',
+                        textAlign: 'center',
+                        width: '100%',
+                        height: '100vh',
+                        marginTop: '10em',
+                      }}
+                    >
+                      No matching results found, Please try again...
+                      <a onClick={() => history.goBack()}>
+                        <div>Return to previous page</div>
+                      </a>
+                    </div>
+                  )}
+                </Col>
+
+                <Col span={8} className="map-container">
+                  <GoogleMap
+                    centerLatitude={centerLatitude}
+                    centerLongitude={centerLongitude}
+                    latitude={itemData?.geo_location?.lat}
+                    longitude={itemData?.geo_location?.lon}
+                  />
+                </Col>
+              </Row>
+            )}
+          </Content>
+        </Layout>
+        <Layout>
+          <Footer>
+            <AppFooter />
+          </Footer>
+        </Layout>
       </Layout>
     </div>
   );

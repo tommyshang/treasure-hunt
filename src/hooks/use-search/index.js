@@ -8,7 +8,7 @@ const useSearch = () => {
     // define the request
     const url = `/api/search`;
 
-    console.log(parameters);
+    // console.log(parameters);
 
     const returnObj = {};
 
@@ -17,6 +17,7 @@ const useSearch = () => {
       const response = await axios.get(url, {
         params: parameters,
       });
+
       if (response.status === 200) {
         returnObj.searchResults = response.data;
       }

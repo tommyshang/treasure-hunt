@@ -5,7 +5,7 @@ import Avatar from 'assets/images/user.svg';
 
 const style = {
   width: '100%',
-  height: '90vh',
+  height: '80vh',
 };
 
 export class MapContainer extends Component {
@@ -18,8 +18,8 @@ export class MapContainer extends Component {
       selectedPlace: {},
 
       mapCenter: {
-        lat: 37.773972,
-        lng: -122.431297,
+        lat: props.centerLatitude,
+        lng: props.centerLongitude,
       },
     };
   }
@@ -33,16 +33,16 @@ export class MapContainer extends Component {
           lng: this.state.mapCenter.lng,
         }}
         center={{
-          lat: this.state.mapCenter.lat,
-          lng: this.state.mapCenter.lng,
+          lat: this.props.centerLatitude,
+          lng: this.props.centerLongitude,
         }}
         containerStyle={style}
-        zoom={12}
+        zoom={10}
       >
         <Marker
           position={{
-            lat: this.state.mapCenter.lat,
-            lng: this.state.mapCenter.lng,
+            lat: this.props.centerLatitude,
+            lng: this.props.centerLongitude,
           }}
           icon={{
             url: Avatar,

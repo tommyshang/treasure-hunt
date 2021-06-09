@@ -36,7 +36,13 @@ class AppFooter extends Component {
           lg={{ span: 6, offset: 2 }}
         >
           {/*<a href="" className="footer-links">CONNECT</a>*/}
-          <Button type="text">CONNECT</Button>
+          <Button
+            type="text"
+            href="https://github.com/tommyshang/treasure-hunt"
+            target="_blank"
+          >
+            GitHub
+          </Button>
         </Col>
       </Row>
     );

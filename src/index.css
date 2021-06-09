@@ -41,3 +41,7 @@ code {
 .ant-list-vertical .ant-list-item-meta {
   margin-bottom: 10px;
 }
+
+.ant-layout-sider-light .ant-layout-sider-zero-width-trigger {
+  background: transparent;
+}

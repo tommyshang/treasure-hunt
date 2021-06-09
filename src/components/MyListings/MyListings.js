@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Affix, Button, Layout, List, Space, message } from 'antd';
 import { DeleteFilled, EditFilled } from '@ant-design/icons';
 
-import { PICTURE_URL_PREFIX } from 'constants/constants';
+import { PICTURE_URL_PREFIX } from '../../constants/constants';
 import './MyListings.style.css';
 import { useDeleteListing, useFetchMyListings } from 'hooks';
 import { useHistory } from 'react-router-dom';
@@ -20,6 +20,8 @@ const MyListings = () => {
   const { isFetching, fetchMyListings } = useFetchMyListings();
   const { isDeleting, deleteListing } = useDeleteListing();
 
+
+  
   const fetch = async () => {
     const { listings, error } = await fetchMyListings();
     if (error !== undefined) {
