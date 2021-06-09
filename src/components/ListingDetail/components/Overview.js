@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import moment from 'moment';
-import { Row, Col, Button, message } from 'antd';
+import { Popconfirm, Row, Col, Button, message } from 'antd';
 import {
   StarOutlined,
   StarFilled,
@@ -150,12 +150,12 @@ const Overview = (props) => {
       message.success(`Delete successful`);
       history.replace('/my-listings');
     }
-  }; 
+  };
 
   const showPopconfirm = () => {
     setVisible(true);
   };
-  
+
   const handleCancel = () => {
     console.log('Clicked cancel button');
     setVisible(false);
