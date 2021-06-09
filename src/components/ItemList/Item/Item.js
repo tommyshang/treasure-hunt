@@ -44,18 +44,24 @@ const Item = (props) => {
             cover={
               <div
                 style={{
-                  display: 'inline-block',
-                  height: '140px',
+                  height: '200px',
                   overflow: 'hidden',
-                  verticalAlign: 'middle',
+                  width: '100%',
+                  position: 'relative',
                 }}
               >
                 <img
                   style={{
                     padding: '1px',
+                    position: 'absolute',
+                    objectFit: 'cover',
                     width: '100%',
-                    display: 'block',
-                    verticalAlign: 'middle',
+                    height: '100%',
+                    top: '-9999px',
+                    bottom: '-9999px',
+                    left: '-9999px',
+                    right: '-9999px',
+                    margin: 'auto',
                   }}
                   alt="pic"
                   src={getPictureUrl(item.picture_urls)}

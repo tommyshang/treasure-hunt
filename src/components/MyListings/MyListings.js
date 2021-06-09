@@ -20,8 +20,6 @@ const MyListings = () => {
   const { isFetching, fetchMyListings } = useFetchMyListings();
   const { isDeleting, deleteListing } = useDeleteListing();
 
-
-  
   const fetch = async () => {
     const { listings, error } = await fetchMyListings();
     if (error !== undefined) {
@@ -134,7 +132,11 @@ const MyListings = () => {
                   ]}
                   extra={
                     <img
-                      height={180}
+                      style={{
+                        height: '180px',
+                        width: '240px',
+                        objectFit: 'cover',
+                      }}
                       alt="logo"
                       src={getPictureUrl(item.picture_urls)}
                     />

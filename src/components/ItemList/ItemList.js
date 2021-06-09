@@ -9,22 +9,20 @@ import {
   Space,
   Affix,
   message,
-  Form,
 } from 'antd';
 import Item from './Item/Item';
 import GoogleMap from './Map/GoogleMap';
 import Moment from 'moment';
 import { useHistory } from 'react-router-dom';
-import queryString, { stringify } from 'query-string';
+import queryString from 'query-string';
 
 import { useSearch } from 'hooks';
 import './ItemList.style.css';
-import { FilterOutlined, OrderedListOutlined } from '@ant-design/icons';
+import { OrderedListOutlined } from '@ant-design/icons';
 import TopNavBar from 'components/Header/TopNavBar';
 import AppFooter from 'components/Footer/AppFooter';
 import { Loading } from 'components';
 import SearchForm from './SearchForm/SearchForm';
-import { getLatLongFromZip } from 'utils';
 
 const { Content, Footer, Sider } = Layout;
 
@@ -39,8 +37,9 @@ const ItemList = ({ location }) => {
   const [searchFormData, setSearchFormData] = useState(undefined);
   const changeData = useCallback((para) => setItemData(para), []);
 
-  const onCollapse = (collapsed) => {
-    setCollapsed({ collapsed });
+  // Scroll window to top when mount
+  window.onbeforeunload = () => {
+    window.scrollTo(0, 0);
   };
 
   const getSearchParams = () => {
