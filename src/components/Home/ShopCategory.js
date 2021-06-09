@@ -52,6 +52,7 @@ const shopCategoryHeadStyle = {
   borderBottom: '0px',
 };
 
+
 const ShopCategory = () => {
   const history = useHistory();
 
