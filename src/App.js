@@ -19,7 +19,7 @@ function App() {
     <BrowserRouter>
       <Switch>
         <Route exact path="/" component={HomePage} />
-        <Route path="/items/:parameter" component={ItemList} />
+        <Route path="/items" component={ItemList} />
         <Route path="/login" component={Login} />
         <Route path="/signup" component={SignUp} />
         <Route path="/sell" component={CreateListingInfo} />
