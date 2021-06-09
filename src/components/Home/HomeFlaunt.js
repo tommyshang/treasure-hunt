@@ -25,7 +25,7 @@ const data = [
   {
     title: 'Flaunt It',
     description:
-      'Show off your secondhand clothes with pride, knowing you aved money and the planet',
+      'Show off your secondhand clothes with pride, knowing you saved money and the planet',
     content:
       'Discover the thrill of finding one-of-a-kind pieces at out-of-this-world prices',
     alt: 'flaunt it',

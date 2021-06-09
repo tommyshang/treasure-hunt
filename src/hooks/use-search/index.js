@@ -15,7 +15,7 @@ const useSearch = () => {
     setIsSearching(true);
     try {
       const response = await axios.get(url, {
-        params: {keyword:parameters},
+        params: parameters,
       });
 
       if (response.status === 200) {

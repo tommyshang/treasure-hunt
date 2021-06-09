@@ -1,15 +1,15 @@
 .catergries {
-  font-size: 25px;
+  /* font-size: 2em; */
   width: 100%;
 }
 
 .product-name {
-  font-size: 60px;
+  font-size: 2em;
   font-weight: bolder;
   width: 100%;
 }
 .date-location {
-  font-size: 25px;
+  /* font-size: 2em; */
 }
 
 .star {
@@ -18,14 +18,19 @@
 }
 
 .price {
-  font-size: 50px;
+  /* font-size: 4em; */
   color: #ff8300;
   margin-top: 20px;
   margin-bottom: 20px;
+  font-size: 1.5em;
 }
 
 button[ant-click-animating-without-extra-node]:after {
   border: 0 none;
   opacity: 0;
   animation: none 0 ease 0 1 normal;
+}
+
+.btns-container {
+  padding-top: 6px;
 }

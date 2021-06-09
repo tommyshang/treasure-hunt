@@ -1,24 +1,39 @@
 import React, { Component } from 'react';
 
 import { Layout, Menu } from 'antd';
+import { useHistory } from 'react-router';
 
 const { Header } = Layout;
 
-class SubNavBar extends Component {
-  render() {
-    return (
-      <Header className="Sub-nav-bar">
-        <Menu mode="horizontal" className="Sub-nav-bar-menu">
-          <Menu.Item key="1">Cars </Menu.Item>
-          <Menu.Item key="2">Exercise Equipments</Menu.Item>
-          <Menu.Item key="3">Furniture</Menu.Item>
-          <Menu.Item key="4">Electronics</Menu.Item>
-          <Menu.Item key="5">Books</Menu.Item>
-          <Menu.Item key="6">Apparels</Menu.Item>
-        </Menu>
-      </Header>
-    );
-  }
-}
+const SubNavBar = () => {
+  const history = useHistory();
+
+  const categories = [
+    'Cars',
+    'Exercise Equipments',
+    'Furniture',
+    'Electronics',
+    'Books',
+    'Apparels',
+  ];
+
+  const handleClick = (category) => {
+    history.push({
+      pathname: '/items',
+      search: `?category=${category}`,
+    });
+  };
+  return (
+    <Header className="Sub-nav-bar">
+      <Menu mode="horizontal" className="Sub-nav-bar-menu">
+        {categories.map((item, index) => (
+          <Menu.Item key={index} onClick={() => handleClick(item)}>
+            {item}
+          </Menu.Item>
+        ))}
+      </Menu>
+    </Header>
+  );
+};
 
 export default SubNavBar;
