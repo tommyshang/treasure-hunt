@@ -40,6 +40,7 @@ const Overview = (props) => {
   const [isSeller, setIsSeller] = useState(false);
   const [userId, setUserId] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
+  const [visible, setVisible] = React.useState(false);
 
   useEffect(() => {
     setUserId(checkValidToken());
@@ -149,6 +150,15 @@ const Overview = (props) => {
       message.success(`Delete successful`);
       history.replace('/my-listings');
     }
+  }; 
+
+  const showPopconfirm = () => {
+    setVisible(true);
+  };
+  
+  const handleCancel = () => {
+    console.log('Clicked cancel button');
+    setVisible(false);
   };
 
   return (
@@ -182,13 +192,19 @@ const Overview = (props) => {
                 onClick={onEditClick}
                 icon={<EditFilled />}
               />
-
-              <Button
-                size="large"
-                className="delete"
-                onClick={onDeleteClick}
-                icon={<DeleteFilled />}
-              />
+              <Popconfirm
+                title="Are you sure to delete listing?"
+                visible={visible}
+                onConfirm={onDeleteClick}
+                onCancel={handleCancel}
+              >
+                <Button
+                  size="large"
+                  className="delete"
+                  onClick={showPopconfirm}
+                  icon={<DeleteFilled />}
+                />
+              </Popconfirm>
             </div>
           ) : isLoading || isFetching ? (
             <Loading />
@@ -198,7 +214,7 @@ const Overview = (props) => {
               loading={isSaving || isUnsaving}
               className="star"
               icon={
-                isSave ? ( 
+                isSave ? (
                   <StarFilled style={{ color: 'black' }} />
                 ) : (
                   <StarOutlined style={{ color: 'black' }} />
