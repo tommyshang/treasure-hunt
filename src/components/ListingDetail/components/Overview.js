@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import moment from 'moment';
-import { Row, Col, Button, message } from 'antd';
+import { Popconfirm, Row, Col, Button, message } from 'antd';
 import {
   StarOutlined,
   StarFilled,
@@ -40,6 +40,7 @@ const Overview = (props) => {
   const [isSeller, setIsSeller] = useState(false);
   const [userId, setUserId] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
+  const [visible, setVisible] = React.useState(false);
 
   useEffect(() => {
     setUserId(checkValidToken());
@@ -151,29 +152,32 @@ const Overview = (props) => {
     }
   };
 
+  const showPopconfirm = () => {
+    setVisible(true);
+  };
+
+  const handleCancel = () => {
+    console.log('Clicked cancel button');
+    setVisible(false);
+  };
+
   return (
-    <div>
-      <Row>
-        <Row className="catergries">Category : {listingInfo.category}</Row>
-        <Col xs={24} sm={24} md={24} lg={24} xl={24} xl={24} xxl={16}>
+    <div style={{ marginBottom: '20px' }}>
+      <Row justify="space-between">
+        <Col>
           <Row className="product-name">{listingInfo.title}</Row>
+          <Row className="price">
+            <div>{formatPrice(listingInfo.price)}</div>
+          </Row>
           <Row className="date-location">
             <div>
               Listed {moment(listingInfo.date, 'YYYYMMDD').fromNow()} in{' '}
               {listingInfo.city_and_state}
             </div>
+            <Row className="catergries">Category: {listingInfo.category}</Row>
           </Row>
         </Col>
-        <Col
-          xs={24}
-          sm={24}
-          md={24}
-          lg={24}
-          xl={24}
-          xxl={8}
-          className="btn"
-          align="right"
-        >
+        <Col xs={6} className="btns-container" align="right">
           {isSeller ? (
             <div>
               <Button
@@ -182,13 +186,19 @@ const Overview = (props) => {
                 onClick={onEditClick}
                 icon={<EditFilled />}
               />
-
-              <Button
-                size="large"
-                className="delete"
-                onClick={onDeleteClick}
-                icon={<DeleteFilled />}
-              />
+              <Popconfirm
+                title="Are you sure to delete listing?"
+                visible={visible}
+                onConfirm={onDeleteClick}
+                onCancel={handleCancel}
+              >
+                <Button
+                  size="large"
+                  className="delete"
+                  onClick={showPopconfirm}
+                  icon={<DeleteFilled />}
+                />
+              </Popconfirm>
             </div>
           ) : isLoading || isFetching ? (
             <Loading />
@@ -198,7 +208,7 @@ const Overview = (props) => {
               loading={isSaving || isUnsaving}
               className="star"
               icon={
-                isSave ? ( 
+                isSave ? (
                   <StarFilled style={{ color: 'black' }} />
                 ) : (
                   <StarOutlined style={{ color: 'black' }} />
@@ -208,9 +218,6 @@ const Overview = (props) => {
             />
           )}
         </Col>
-      </Row>
-      <Row className="price">
-        <div>{formatPrice(listingInfo.price)}</div>
       </Row>
     </div>
   );

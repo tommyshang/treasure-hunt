@@ -10,22 +10,29 @@ const Details = (props) => {
         <Row className="detail-text"> Details</Row>
         <Divider />
         <Row className="condition">
-          <Col span={16} className="title">
+          <Col span={8} className="details-title">
             Condition
           </Col>
-          <Col span={8} className="value">
+          <Col span={16} className="value">
             {condition}
           </Col>
         </Row>
         <Row className="brand">
-          <Col span={16} className="title">
+          <Col span={8} className="details-title">
             Brand
           </Col>
-          <Col span={8} className="value">
+          <Col span={16} className="value">
             {brand}
           </Col>
         </Row>
-        <Row className="description">{description}</Row>
+        <Row className="description">
+          <Col span={8} className="details-title">
+            Description
+          </Col>
+          <Col span={16} className="value">
+            {description}
+          </Col>
+        </Row>
       </Row>
     </div>
   );
