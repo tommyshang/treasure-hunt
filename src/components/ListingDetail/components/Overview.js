@@ -164,7 +164,7 @@ const Overview = (props) => {
   return (
     <div>
       <Row>
-        <Row className="catergries">Category : {listingInfo.category}</Row>
+        <Row className="catergries">Category: {listingInfo.category}</Row>
         <Col xs={24} sm={24} md={24} lg={24} xl={24} xl={24} xxl={16}>
           <Row className="product-name">{listingInfo.title}</Row>
           <Row className="date-location">
