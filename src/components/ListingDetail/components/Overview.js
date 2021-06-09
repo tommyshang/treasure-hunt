@@ -99,7 +99,10 @@ const Overview = (props) => {
     // check if token is still valid
     if (!isLogIn) {
       localStorage.removeItem(TOKEN_KEY);
-      history.push('/login');
+      history.push({
+        pathname: '/login',
+        from: `/listing-detail/${listingId}`,
+      });
     } else if (isSave) {
       await unsave();
     } else {
@@ -201,7 +204,7 @@ const Overview = (props) => {
               </Popconfirm>
             </div>
           ) : isLoading || isFetching ? (
-            <Loading />
+            <Loading customStyle={{ paddingTop: '7px', paddingRight: '9px' }} />
           ) : (
             <Button
               size="large"

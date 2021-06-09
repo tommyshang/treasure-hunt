@@ -33,8 +33,8 @@ export class MapContainer extends Component {
           lng: this.state.mapCenter.lng,
         }}
         center={{
-          lat: this.props.centerLatitude,
-          lng: this.props.centerLongitude,
+          lat: this.props.latitude,
+          lng: this.props.longitude,
         }}
         containerStyle={style}
         zoom={10}
@@ -54,7 +54,7 @@ export class MapContainer extends Component {
             lat: this.props.latitude,
             lng: this.props.longitude,
           }}
-          onClick={() => this.onMarkerClick()}
+          onClick={() => this.props.goToDetail(this.props.listingId)}
         ></Marker>
       </Map>
     );
