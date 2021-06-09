@@ -33,7 +33,7 @@ const Item = (props) => {
           key={item.listing_id}
           onClick={() => history.push(`/listing-detail/${item.listing_id}`)}
           onMouseEnter={() => changeData(item)}
-          onMouseLeave={() => changeData(undefined)}
+          // onMouseLeave={() => changeData(undefined)}
         >
           <Card
             hoverable

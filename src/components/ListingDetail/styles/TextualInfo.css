@@ -11,9 +11,9 @@ button[ant-click-animating-without-extra-node]:after {
 }
 
 .textual-info {
-  min-height: 80vh;
+  min-height: 60vh;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  align-items:stretch;
+  align-items: stretch;
 }

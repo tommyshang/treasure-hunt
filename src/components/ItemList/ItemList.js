@@ -36,6 +36,9 @@ const ItemList = ({ location }) => {
   const { isSearching, search } = useSearch();
   const [searchFormData, setSearchFormData] = useState(undefined);
   const changeData = useCallback((para) => setItemData(para), []);
+  const goToDetail = useCallback((listingId) =>
+    history.push(`/listing-detail/${listingId}`)
+  );
 
   // Scroll window to top when mount
   window.onbeforeunload = () => {
@@ -214,6 +217,8 @@ const ItemList = ({ location }) => {
                     centerLongitude={centerLongitude}
                     latitude={itemData?.geo_location?.lat}
                     longitude={itemData?.geo_location?.lon}
+                    goToDetail={goToDetail}
+                    listingId={itemData?.listing_id}
                   />
                 </Col>
               </Row>

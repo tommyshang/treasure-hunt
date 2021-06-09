@@ -34,7 +34,6 @@ const Pictures = (props) => {
               <Image
                 placeholder={placeHolder}
                 style={{
-                  border: 0,
                   objectFit: 'cover',
                   minWidth: '400px',
                   height: '500px',
