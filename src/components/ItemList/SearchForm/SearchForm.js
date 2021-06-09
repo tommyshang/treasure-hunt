@@ -26,7 +26,7 @@ const SearchForm = ({ setSearchFormData }) => {
       time_interval,
     } = values;
 
-    if (zipcode !== undefined && radius !== undefined) {
+    if (zipcode && radius) {
       try {
         const { lat, lng } = await getLatLongFromZip(zipcode);
         values.latitude = lat;
@@ -34,6 +34,10 @@ const SearchForm = ({ setSearchFormData }) => {
       } catch (err) {
         console.error(err);
       }
+    }
+
+    if (keyword === '') {
+      values.keyword = undefined;
     }
     console.log(values);
     setSearchFormData(values);
@@ -58,10 +62,14 @@ const SearchForm = ({ setSearchFormData }) => {
           <Input prefix={<SearchOutlined />} placeholder="Search..." />
         </Form.Item>
         <Form.Item label="Zipcode" name="zipcode">
-          <Input prefix={<CompassOutlined />} placeholder="Zipcode..." />
+          <InputNumber
+            prefix={<CompassOutlined />}
+            placeholder="Zipcode..."
+            style={{ width: '100%' }}
+          />
         </Form.Item>
         <Form.Item label="Radius" name="radius">
-          <Input />
+          <InputNumber style={{ width: '100%' }} />
         </Form.Item>
         <Form.Item label="Item condition" name="condition">
           <Select>
@@ -73,11 +81,11 @@ const SearchForm = ({ setSearchFormData }) => {
             <Select.Option value="Used - Fair">Used - Fair</Select.Option>
           </Select>
         </Form.Item>
-        <Form.Item label="Price" name="min_price">
-          <Input placeholder="Min" />
+        <Form.Item label="Min Price" name="min_price">
+          <InputNumber placeholder="Min" style={{ width: '100%' }} />
         </Form.Item>
-        <Form.Item label="Price" name="max_price">
-          <Input placeholder="Max" />
+        <Form.Item label="Max Price" name="max_price">
+          <InputNumber placeholder="Max" style={{ width: '100%' }} />
         </Form.Item>
         <Form.Item label="Date listed" name="time_interval">
           <Select>
