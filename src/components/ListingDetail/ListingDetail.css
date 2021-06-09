@@ -21,7 +21,7 @@ button[ant-click-animating-without-extra-node]:after {
   margin-top: 20px;
   margin-bottom: 10px;
   background-color: transparent;
-  font-size: 30px;
+  /* font-size: 30px; */
   height: 100%;
   padding: 0px;
 }

@@ -162,28 +162,22 @@ const Overview = (props) => {
   };
 
   return (
-    <div>
-      <Row>
-        <Row className="catergries">Category: {listingInfo.category}</Row>
-        <Col xs={24} sm={24} md={24} lg={24} xl={24} xl={24} xxl={16}>
+    <div style={{ marginBottom: '20px' }}>
+      <Row justify="space-between">
+        <Col>
           <Row className="product-name">{listingInfo.title}</Row>
+          <Row className="price">
+            <div>{formatPrice(listingInfo.price)}</div>
+          </Row>
           <Row className="date-location">
             <div>
               Listed {moment(listingInfo.date, 'YYYYMMDD').fromNow()} in{' '}
               {listingInfo.city_and_state}
             </div>
+            <Row className="catergries">Category: {listingInfo.category}</Row>
           </Row>
         </Col>
-        <Col
-          xs={24}
-          sm={24}
-          md={24}
-          lg={24}
-          xl={24}
-          xxl={8}
-          className="btn"
-          align="right"
-        >
+        <Col xs={6} className="btns-container" align="right">
           {isSeller ? (
             <div>
               <Button
@@ -224,9 +218,6 @@ const Overview = (props) => {
             />
           )}
         </Col>
-      </Row>
-      <Row className="price">
-        <div>{formatPrice(listingInfo.price)}</div>
       </Row>
     </div>
   );
