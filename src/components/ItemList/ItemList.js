@@ -18,18 +18,20 @@ import queryString from 'query-string';
 
 import { useSearch } from 'hooks';
 import './ItemList.style.css';
-import { OrderedListOutlined } from '@ant-design/icons';
+import { OrderedListOutlined, SecurityScanTwoTone } from '@ant-design/icons';
 import TopNavBar from 'components/Header/TopNavBar';
 import AppFooter from 'components/Footer/AppFooter';
 import { Loading } from 'components';
 import SearchForm from './SearchForm/SearchForm';
 import { getHaversineDistance } from 'utils';
+import SubNavBar from 'components/Header/SubNavBar';
 
 const { Content, Footer, Sider } = Layout;
 
 const ItemList = ({ location }) => {
   const history = useHistory();
   const [items, setItems] = useState(undefined);
+  const [collapsed, setCollapsed] = useState(true);
   const [itemData, setItemData] = useState({});
   const [centerLatitude, setCenterLatitude] = useState(40.75);
   const [centerLongitude, setCenterLongitude] = useState(-73.94);
@@ -155,10 +157,12 @@ const ItemList = ({ location }) => {
       <Layout style={{ minHeight: '100vh' }}>
         <Affix offsetTop={0} className="app__affix-header">
           <TopNavBar />
+          <SubNavBar />
         </Affix>
         <Layout style={{ minHeight: '100vh' }}>
           <Sider
             collapsedWidth="0"
+            defaultCollapsed={true}
             theme="light"
             collapsible
             style={{ borderRight: '1px solid #f0f0f0' }}
