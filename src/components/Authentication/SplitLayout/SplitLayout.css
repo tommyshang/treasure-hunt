@@ -10,7 +10,6 @@
 .sl_container #sl_right.sl_content {
   flex-grow: 1;
   height: 100vh;
-  overflow: scroll;
   min-width: 700px;
 }
 
