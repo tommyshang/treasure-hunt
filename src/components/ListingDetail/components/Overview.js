@@ -167,7 +167,7 @@ const Overview = (props) => {
   return (
     <div style={{ marginBottom: '20px' }}>
       <Row justify="space-between">
-        <Col>
+        <Col xs={16}>
           <Row className="product-name">{listingInfo.title}</Row>
           <Row className="price">
             <div>{formatPrice(listingInfo.price)}</div>
@@ -180,7 +180,7 @@ const Overview = (props) => {
             <Row className="catergries">Category: {listingInfo.category}</Row>
           </Row>
         </Col>
-        <Col xs={6} className="btns-container" align="right">
+        <Col xs={4} className="btns-container" align="right">
           {isSeller ? (
             <div>
               <Button
