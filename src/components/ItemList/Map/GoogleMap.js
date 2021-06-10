@@ -5,7 +5,7 @@ import Avatar from 'assets/images/user.svg';
 
 const style = {
   width: '100%',
-  height: '80vh',
+  height: '79vh',
 };
 
 export class MapContainer extends Component {

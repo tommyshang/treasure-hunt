@@ -38,6 +38,7 @@ const ItemList = ({ location }) => {
   const { isSearching, search } = useSearch();
   const [searchFormData, setSearchFormData] = useState(undefined);
   const changeData = useCallback((para) => setItemData(para), []);
+  const [mapContainer, setMapContainer] = useState(null);
   const goToDetail = useCallback((listingId) =>
     history.push(`/listing-detail/${listingId}`)
   );
@@ -160,15 +161,17 @@ const ItemList = ({ location }) => {
           <SubNavBar />
         </Affix>
         <Layout style={{ minHeight: '100vh' }}>
-          <Sider
-            collapsedWidth="0"
-            defaultCollapsed={Object.values(getSearchParams()).length !== 0}
-            theme="light"
-            collapsible
-            style={{ borderRight: '1px solid #f0f0f0' }}
-          >
-            <SearchForm setSearchFormData={setSearchFormData} />
-          </Sider>
+          <Affix offsetTop={136}>
+            <Sider
+              collapsedWidth="0"
+              defaultCollapsed={Object.values(getSearchParams()).length !== 0}
+              theme="light"
+              collapsible
+              style={{ borderRight: '1px solid #f0f0f0' }}
+            >
+              <SearchForm setSearchFormData={setSearchFormData} />
+            </Sider>
+          </Affix>
           <Content className="item-list-row">
             {isSearching ? (
               <Loading
@@ -180,7 +183,7 @@ const ItemList = ({ location }) => {
                 }}
               />
             ) : (
-              <Row justify="space-between">
+              <Row justify="space-between" height="100%">
                 <Col span={15} className="item-list">
                   {!items ? (
                     <div
@@ -236,21 +239,23 @@ const ItemList = ({ location }) => {
                 </Col>
 
                 <Col span={9} className="map-container">
-                  <GoogleMap
-                    centerLatitude={centerLatitude}
-                    centerLongitude={centerLongitude}
-                    latitude={itemData?.geo_location?.lat}
-                    longitude={itemData?.geo_location?.lon}
-                    goToDetail={goToDetail}
-                    listingId={itemData?.listing_id}
-                  />
+                  <Affix offsetTop={136}>
+                    <GoogleMap
+                      centerLatitude={centerLatitude}
+                      centerLongitude={centerLongitude}
+                      latitude={itemData?.geo_location?.lat}
+                      longitude={itemData?.geo_location?.lon}
+                      goToDetail={goToDetail}
+                      listingId={itemData?.listing_id}
+                    />
+                  </Affix>
                 </Col>
               </Row>
             )}
           </Content>
         </Layout>
         <Layout>
-          <Footer>
+          <Footer style={{ zIndex: 15 }}>
             <AppFooter />
           </Footer>
         </Layout>
