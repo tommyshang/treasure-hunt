@@ -54,17 +54,7 @@ class HomeFlaunt extends Component {
     return (
       <Row align="middle">
         <Col span={16} className="Home-page-flaunt">
-          {/*TODO: smaller / better resolution "have more waste less"*/}
-          <Card
-            headStyle={haveMoreWasteLessHeadStyle}
-            // title={
-            //     <Title level={2} style={{ color: '#142264' }}>
-            //         HAVE MORE
-            //     </Title>
-            // }
-            bordered={false}
-            // cover={<img alt={"waste_less"} src={waste_less} style={haveMoreWasteLessStyle}/>}
-          >
+          <Card headStyle={haveMoreWasteLessHeadStyle} bordered={false}>
             <Title level={1} style={{ color: '#142264' }}>
               HAVE MORE
             </Title>
@@ -82,7 +72,6 @@ class HomeFlaunt extends Component {
             </Title>
           </Card>
 
-          {/*TODO: what page does "flaunt it" direct to? direct "find it" to /items; direct "set it free" to "/sell"?*/}
           <List
             grid={{
               gutter: 8,
@@ -122,128 +111,3 @@ class HomeFlaunt extends Component {
 }
 
 export default HomeFlaunt;
-
-// const listData = [];
-// for (let i = 0; i < 1; i++) {
-//     listData.push({
-//         href: 'https://ant.design',
-//         title: `HAVE MORE`,
-//         avatar: 'https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png',
-//         description:
-//             'Waste Less',
-//         content:
-//             'We supply a series of design principles, practical patterns and high quality design resources (Sketch and Axure), to help people create their product prototypes beautifully and efficiently.',
-//     });
-// }
-//
-// const IconText = ({ icon, text }) => (
-//     <Space>
-//         {React.createElement(icon)}
-//         {text}
-//     </Space>
-// );
-
-{
-  /*<Card*/
-}
-{
-  /*    bordered={false}*/
-}
-{
-  /*>*/
-}
-{
-  /*    <div style={{textAlign:'left'}}>*/
-}
-{
-  /*    <p id="have-more">HAVE MORE</p>*/
-}
-{
-  /*    <h1 id="waste-less">WASTE LESS</h1>*/
-}
-{
-  /*    </div>*/
-}
-{
-  /*    <Avatar size="medium" shape="square" src={find_it} />*/
-}
-{
-  /*</Card>*/
-}
-
-{
-  /*<h2 className="Have-more">HAVE MORE</h2>*/
-}
-{
-  /*<h1 className="Waste-less">WASTE LESS</h1>*/
-}
-{
-  /*<List*/
-}
-{
-  /*    itemLayout="vertical"*/
-}
-{
-  /*    size="large"*/
-}
-{
-  /*    dataSource={data}*/
-}
-{
-  /*    renderItem={item => (*/
-}
-{
-  /*        <List.Item*/
-}
-{
-  /*            key={item.title}*/
-}
-{
-  /*            // extra={*/
-}
-{
-  /*            //     <img*/
-}
-{
-  /*            //         width={600}*/
-}
-{
-  /*            //         alt="logo"*/
-}
-{
-  /*            //         src={homepage_people}*/
-}
-{
-  /*            //     />*/
-}
-{
-  /*            // }*/
-}
-{
-  /*        >*/
-}
-{
-  /*            {<Avatar size="large" shape="square" src={item.src} />}*/
-}
-{
-  /*            <List.Item.Meta className={"Home-page-flaunt-text"}*/
-}
-{
-  /*                title={<a href={item.href}>{item.title}</a>}*/
-}
-{
-  /*                description={item.description}*/
-}
-{
-  /*            />*/
-}
-
-{
-  /*        </List.Item>*/
-}
-{
-  /*    )}*/
-}
-{
-  /*/>*/
-}
