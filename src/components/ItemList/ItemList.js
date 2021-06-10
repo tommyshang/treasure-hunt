@@ -23,6 +23,7 @@ import TopNavBar from 'components/Header/TopNavBar';
 import AppFooter from 'components/Footer/AppFooter';
 import { Loading } from 'components';
 import SearchForm from './SearchForm/SearchForm';
+import { getHaversineDistance } from 'utils';
 
 const { Content, Footer, Sider } = Layout;
 
@@ -71,10 +72,7 @@ const ItemList = ({ location }) => {
   useEffect(() => {
     const parameters = getSearchParams();
     console.log(parameters);
-    if (parameters.keyword || parameters.category) {
-      console.log('fetching with', parameters);
-      fetch(parameters);
-    }
+    fetch(parameters);
   }, [location.search]);
 
   useEffect(() => {
@@ -107,10 +105,27 @@ const ItemList = ({ location }) => {
 
   const sortNewest = () => {
     const sorted = [...items].sort((a, b) => {
-      return (
-        new Moment(a?.date.substr(0, 10)).format('YYYYMMDD') -
-        new Moment(b?.date.substr(0, 10)).format('YYYYMMDD')
+      return new Moment(a?.date) - new Moment(b?.date);
+    });
+
+    setItems(sorted);
+  };
+
+  const sortNearest = () => {
+    const sorted = [...items].sort((a, b) => {
+      const distA = getHaversineDistance(
+        centerLatitude,
+        centerLongitude,
+        a?.geo_location.lat,
+        a?.geo_location.lon
       );
+      const distB = getHaversineDistance(
+        centerLatitude,
+        centerLongitude,
+        b?.geo_location.lat,
+        b?.geo_location.lon
+      );
+      return distA - distB;
     });
 
     setItems(sorted);
@@ -119,13 +134,16 @@ const ItemList = ({ location }) => {
   const menu = (
     <Menu>
       <Menu.Item onClick={() => sortHighToLow()} visible type="button">
-        Price: High-Low
+        Price: Highest first
       </Menu.Item>
       <Menu.Item onClick={() => sortLowToHigh()} visible type="button">
-        Price: Low-High
+        Price: Lowest first
       </Menu.Item>
       <Menu.Item onClick={() => sortNewest()} visible type="button">
-        Newest
+        Date listed: Newest First
+      </Menu.Item>
+      <Menu.Item onClick={() => sortNearest()} visible type="button">
+        Distance: Nearest First
       </Menu.Item>
     </Menu>
   );

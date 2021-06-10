@@ -26,7 +26,7 @@ const SearchForm = ({ setSearchFormData }) => {
       time_interval,
     } = values;
 
-    if (zipcode && radius) {
+    if (zipcode) {
       try {
         const { lat, lng } = await getLatLongFromZip(zipcode);
         values.latitude = lat;
