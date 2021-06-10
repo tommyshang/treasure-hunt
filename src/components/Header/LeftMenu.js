@@ -1,11 +1,9 @@
+import { AutoComplete, Input, Menu } from 'antd';
 import React from 'react';
 import { NavLink } from 'react-router-dom';
-
-import { Menu, Input, AutoComplete } from 'antd';
-
 import { useHistory } from 'react-router-dom';
 
-import logo from '../../assets/images/logo.png';
+import logo from 'assets/images/logo.png';
 
 const LeftMenu = () => {
   let history = useHistory();

@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
 
-import { Col, Row } from 'antd';
-
 class SplitLayout extends Component {
   constructor() {
     super();

@@ -1,18 +1,17 @@
 import React from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 
+import Login from 'components/Authentication/Login/Login';
+import SignUp from 'components/Authentication/SignUp/SignUp';
+import CreateListingInfo from 'components/ListingInfo/CreateListingInfo';
+import EditListingInfo from 'components/ListingInfo/EditListingInfo';
+
 import HomePage from './components/Home/Home';
 import ItemList from './components/ItemList/ItemList';
+import ListingDetail from './components/ListingDetail/ListingDetail';
 import MyListings from './components/MyListings/MyListings';
 import SavedListings from './components/SavedListings/SavedListings';
 
-import Login from 'components/Authentication/Login/Login';
-import SignUp from 'components/Authentication/SignUp/SignUp';
-import ListingDetail from './components/ListingDetail/ListingDetail';
-
-import './App.css';
-import CreateListingInfo from 'components/ListingInfo/CreateListingInfo';
-import EditListingInfo from 'components/ListingInfo/EditListingInfo';
 // this component should be a root router file
 function App() {
   return (

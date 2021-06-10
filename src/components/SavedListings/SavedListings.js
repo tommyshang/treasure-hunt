@@ -1,15 +1,16 @@
+import { Affix, Card, Col, Layout, List, message, Row } from 'antd';
 import React, { useEffect, useState } from 'react';
-import { Affix, Card, Col, Layout, List, Row, message } from 'antd';
+import { useHistory } from 'react-router';
+
+import { Loading } from 'components';
+import AppFooter from 'components/Footer/AppFooter';
+import TopNavBar from 'components/Header/TopNavBar';
+import { useFetchSavedListings } from 'hooks';
+import { checkValidToken, formatPrice } from 'utils';
 
 import { PICTURE_URL_PREFIX } from '../../constants/constants';
+
 import './SavedListings.style.css';
-import { useFetchSavedListings } from 'hooks';
-import { useHistory } from 'react-router';
-import TopNavBar from 'components/Header/TopNavBar';
-import AppFooter from 'components/Footer/AppFooter';
-import { Loading } from 'components';
-import { formatPrice } from 'utils';
-import { checkValidToken } from 'utils';
 
 const { Content, Footer } = Layout;
 const { Meta } = Card;

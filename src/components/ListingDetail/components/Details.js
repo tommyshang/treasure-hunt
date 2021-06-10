@@ -1,6 +1,8 @@
+import { Col, Divider, Row } from 'antd';
 import React from 'react';
-import { Row, Col, Divider } from 'antd';
+
 import '../styles/Details.css';
+
 const Details = (props) => {
   const { condition, brand, description } = props;
 

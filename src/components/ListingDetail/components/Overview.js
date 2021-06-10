@@ -1,26 +1,25 @@
-import React, { useState, useEffect } from 'react';
-import moment from 'moment';
-import { Popconfirm, Row, Col, Button, message } from 'antd';
 import {
-  StarOutlined,
-  StarFilled,
-  EditFilled,
   DeleteFilled,
+  EditFilled,
+  StarFilled,
+  StarOutlined,
 } from '@ant-design/icons';
+import { Button, Col, message, Popconfirm, Row } from 'antd';
+import moment from 'moment';
+import React, { useEffect, useState } from 'react';
+import { useHistory } from 'react-router';
+
+import { Loading } from 'components';
+import { TOKEN_KEY } from 'constants/constants';
 import {
+  useDeleteListing,
+  useFetchSavedListings,
   useSaveListing,
   useUnsaveListing,
-  useFetchSavedListings,
-  useDeleteListing,
 } from 'hooks';
-import '../styles/Overview.css';
-import { useHistory } from 'react-router';
-import { checkValidToken } from 'utils';
+import { checkValidToken, formatPrice } from 'utils';
 
-import { TOKEN_KEY } from 'constants/constants';
-import { Loading } from 'components';
-import { formatPrice } from 'utils';
-import axios from 'axios';
+import '../styles/Overview.css';
 
 const Overview = (props) => {
   const pageName = 'Listing Detail Page: Overview: ';

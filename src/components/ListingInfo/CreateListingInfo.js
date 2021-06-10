@@ -1,13 +1,14 @@
+import { Affix, Col, Layout, message, Row } from 'antd';
 import React, { useEffect } from 'react';
-import { Affix, Row, Col, Layout, message } from 'antd';
-
-import CreateListing from './CreateListingInfo/CreateListing';
-import ListingImage from './CreateListingImage/ListingImage';
-import Headline from './Headline/Headline';
-import TopNavBar from 'components/Header/TopNavBar';
-import AppFooter from 'components/Footer/AppFooter';
 import { useHistory } from 'react-router';
+
+import AppFooter from 'components/Footer/AppFooter';
+import TopNavBar from 'components/Header/TopNavBar';
 import { checkValidToken } from 'utils';
+
+import ListingImage from './CreateListingImage/ListingImage';
+import CreateListing from './CreateListingInfo/CreateListing';
+import Headline from './Headline/Headline';
 
 const { Content, Footer } = Layout;
 

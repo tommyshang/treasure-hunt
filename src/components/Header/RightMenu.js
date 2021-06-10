@@ -1,9 +1,9 @@
+import { Button, Menu, message } from 'antd';
 import React, { useEffect, useState } from 'react';
 import { NavLink, useLocation } from 'react-router-dom';
 
-import { Menu, Button, message } from 'antd';
-import { checkValidToken } from 'utils';
 import { useLogout } from 'hooks';
+import { checkValidToken } from 'utils';
 
 const { Item } = Menu;
 

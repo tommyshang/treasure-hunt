@@ -1,7 +1,6 @@
+import { Button, Card, Col, Row } from 'antd';
 import React, { Component } from 'react';
 import { NavLink } from 'react-router-dom';
-
-import { Button, Card, Col, Row } from 'antd';
 
 import homepage2 from 'assets/images/homepage2.jpg';
 

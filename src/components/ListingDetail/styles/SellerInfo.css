@@ -1,7 +1,6 @@
 .seller-section {
   margin-top: 30px;
   margin-bottom: 40px;
-  /* font-size: 40px; */
 }
 .avatar {
   padding-left: 5px;
@@ -11,19 +10,11 @@
 }
 
 .seller-info {
-  /* font-size: 30px; */
   width: 100%;
 }
 .header {
   font-weight: bold;
-  /* font-size: 30px; */
 }
-
-/* .contact-btn {
-  color: #fff;
-  background: #00a9cd;
-  border: 0px;
-} */
 
 button[ant-click-animating-without-extra-node]:after {
   border: 0 none;

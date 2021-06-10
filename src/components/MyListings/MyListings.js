@@ -1,15 +1,17 @@
-import React, { useEffect, useState } from 'react';
-import { Affix, Button, Layout, List, Space, message } from 'antd';
 import { DeleteFilled, EditFilled } from '@ant-design/icons';
+import { Affix, Button, Layout, List, message, Space } from 'antd';
+import React, { useEffect, useState } from 'react';
+import { useHistory } from 'react-router-dom';
+
+import { Loading } from 'components';
+import AppFooter from 'components/Footer/AppFooter';
+import TopNavBar from 'components/Header/TopNavBar';
+import { useDeleteListing, useFetchMyListings } from 'hooks';
+import { checkValidToken, formatPrice } from 'utils';
 
 import { PICTURE_URL_PREFIX } from '../../constants/constants';
+
 import './MyListings.style.css';
-import { useDeleteListing, useFetchMyListings } from 'hooks';
-import { useHistory } from 'react-router-dom';
-import TopNavBar from 'components/Header/TopNavBar';
-import AppFooter from 'components/Footer/AppFooter';
-import { Loading } from 'components';
-import { checkValidToken, formatPrice } from 'utils';
 
 const { Content, Footer } = Layout;
 

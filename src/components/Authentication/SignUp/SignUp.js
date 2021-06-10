@@ -1,13 +1,12 @@
+import { Button, Col, Form, Input, message, Row } from 'antd';
 import React from 'react';
+import { Link, useHistory, useLocation } from 'react-router-dom';
 
-import { Col, message, Row } from 'antd';
-import { Form, Input, Button } from 'antd';
+import SignUpPhoto from 'assets/images/signup_img.jpg';
 import Logo from 'assets/logos/th_logo.svg';
+import { useSignup } from 'hooks';
 
 import SplitLayout from '../SplitLayout/SplitLayout';
-import SignUpPhoto from 'assets/images/signup_img.jpg';
-import { Link, useHistory, useLocation } from 'react-router-dom';
-import { useSignup } from 'hooks';
 
 const SignUp = () => {
   const { isSigningup, signup } = useSignup();

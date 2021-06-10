@@ -1,25 +1,23 @@
-import React, { useEffect, useState } from 'react';
+import { UploadOutlined } from '@ant-design/icons';
 import {
-  Input,
-  Form,
-  Select,
-  InputNumber,
-  Radio,
   Button,
-  Upload,
-  Row,
   Col,
+  Form,
+  Input,
+  InputNumber,
   message,
   Modal,
+  Radio,
+  Row,
+  Select,
+  Upload,
 } from 'antd';
-
 import axios from 'axios';
-import { UploadOutlined } from '@ant-design/icons';
-import { TOKEN_KEY } from 'constants/constants';
+import React, { useEffect, useState } from 'react';
 import { useHistory, useParams } from 'react-router';
-import { checkValidToken } from 'utils';
-import { urlToObject } from 'utils';
-import { getBase64 } from 'utils';
+
+import { TOKEN_KEY } from 'constants/constants';
+import { checkValidToken, getBase64, urlToObject } from 'utils';
 
 const { Option } = Select;
 

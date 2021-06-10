@@ -1,14 +1,12 @@
+import { Affix, Input, Layout } from 'antd';
 import React, { Component } from 'react';
 
-import { Layout, Input, Affix } from 'antd';
-
-import CarouselSlides from './CarouselSlides';
-import ShopCategory from './ShopCategory';
-import TopNavBar from '../Header/TopNavBar';
-import SubNavBar from '../Header/SubNavBar';
-import HomeFlaunt from './HomeFlaunt';
 import AppFooter from '../Footer/AppFooter';
-
+import SubNavBar from '../Header/SubNavBar';
+import TopNavBar from '../Header/TopNavBar';
+import CarouselSlides from './CarouselSlides';
+import HomeFlaunt from './HomeFlaunt';
+import ShopCategory from './ShopCategory';
 
 const { Content, Footer } = Layout;
 
@@ -18,8 +16,6 @@ const onSearch = (value) => console.log(value);
 const homeLayoutStyle = {
   background: 'white',
 };
-
-
 
 class Home extends Component {
   render() {

@@ -1,44 +1,44 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import { OrderedListOutlined } from '@ant-design/icons';
 import {
-  Layout,
-  Row,
-  Col,
-  Menu,
-  Dropdown,
-  Button,
-  Space,
   Affix,
+  Button,
+  Col,
+  Dropdown,
+  Layout,
+  Menu,
   message,
+  Row,
+  Space,
 } from 'antd';
+import Moment from 'moment';
+import queryString from 'query-string';
+import React, { useCallback, useEffect, useState } from 'react';
+import { useHistory } from 'react-router-dom';
+
+import { Loading } from 'components';
+import AppFooter from 'components/Footer/AppFooter';
+import SubNavBar from 'components/Header/SubNavBar';
+import TopNavBar from 'components/Header/TopNavBar';
+import { useSearch } from 'hooks';
+import { getHaversineDistance } from 'utils';
+
 import Item from './Item/Item';
 import GoogleMap from './Map/GoogleMap';
-import Moment from 'moment';
-import { useHistory } from 'react-router-dom';
-import queryString from 'query-string';
-
-import { useSearch } from 'hooks';
-import './ItemList.style.css';
-import { OrderedListOutlined, SecurityScanTwoTone } from '@ant-design/icons';
-import TopNavBar from 'components/Header/TopNavBar';
-import AppFooter from 'components/Footer/AppFooter';
-import { Loading } from 'components';
 import SearchForm from './SearchForm/SearchForm';
-import { getHaversineDistance } from 'utils';
-import SubNavBar from 'components/Header/SubNavBar';
+
+import './ItemList.style.css';
 
 const { Content, Footer, Sider } = Layout;
 
 const ItemList = ({ location }) => {
   const history = useHistory();
   const [items, setItems] = useState(undefined);
-  const [collapsed, setCollapsed] = useState(true);
   const [itemData, setItemData] = useState({});
   const [centerLatitude, setCenterLatitude] = useState(40.75);
   const [centerLongitude, setCenterLongitude] = useState(-73.94);
   const { isSearching, search } = useSearch();
   const [searchFormData, setSearchFormData] = useState(undefined);
   const changeData = useCallback((para) => setItemData(para), []);
-  const [mapContainer, setMapContainer] = useState(null);
   const goToDetail = useCallback((listingId) =>
     history.push(`/listing-detail/${listingId}`)
   );
@@ -78,6 +78,7 @@ const ItemList = ({ location }) => {
       return;
     }
     fetch(parameters);
+    window.onbeforeunload();
   }, [location.search]);
 
   useEffect(() => {
@@ -172,92 +173,92 @@ const ItemList = ({ location }) => {
               <SearchForm setSearchFormData={setSearchFormData} />
             </Sider>
           </Affix>
-          <Content className="item-list-row">
-            {isSearching ? (
-              <Loading
-                customStyle={{
-                  position: 'fixed',
-                  top: '50%',
-                  left: '50%',
-                  transform: 'translate(-50%, -50%)',
-                }}
-              />
-            ) : (
-              <Row justify="space-between" height="100%">
-                <Col span={15} className="item-list">
-                  {!items ? (
-                    <div
-                      style={{
-                        fontSize: '1.2em',
-                        textAlign: 'center',
-                        width: '100%',
-                        height: '100vh',
-                        marginTop: '10em',
-                      }}
-                    >
-                      Try Our Search!
-                    </div>
-                  ) : items.length !== 0 ? (
-                    <div>
-                      <h1>Listings Near You</h1>
-                      <div className="item-icons">
-                        <Space direction="vertical" className="filter">
-                          <Space wrap>
-                            <Dropdown overlay={menu} placement="bottomCenter">
-                              <Button icon={<OrderedListOutlined />}>
-                                Sort by
-                              </Button>
-                            </Dropdown>
+          <Layout>
+            <Content className="item-list-row">
+              {isSearching ? (
+                <Loading
+                  customStyle={{
+                    position: 'fixed',
+                    top: '50%',
+                    left: '50%',
+                    transform: 'translate(-50%, -50%)',
+                  }}
+                />
+              ) : (
+                <Row justify="space-between" height="100%">
+                  <Col span={15} className="item-list">
+                    {!items ? (
+                      <div
+                        style={{
+                          fontSize: '1.2em',
+                          textAlign: 'center',
+                          width: '100%',
+                          height: '100vh',
+                          marginTop: '10em',
+                        }}
+                      >
+                        Try Our Search!
+                      </div>
+                    ) : items.length !== 0 ? (
+                      <div>
+                        <h1>Listings Near You</h1>
+                        <div className="item-icons">
+                          <Space direction="vertical" className="filter">
+                            <Space wrap>
+                              <Dropdown overlay={menu} placement="bottomCenter">
+                                <Button icon={<OrderedListOutlined />}>
+                                  Sort by
+                                </Button>
+                              </Dropdown>
+                            </Space>
                           </Space>
-                        </Space>
-                      </div>
+                        </div>
 
-                      <div className="items">
-                        <Item
-                          Products={items}
-                          changeData={changeData}
-                          itemData={itemData}
-                        />
+                        <div className="items">
+                          <Item
+                            Products={items}
+                            changeData={changeData}
+                            itemData={itemData}
+                          />
+                        </div>
                       </div>
-                    </div>
-                  ) : (
-                    <div
-                      style={{
-                        fontSize: '1.2em',
-                        textAlign: 'center',
-                        width: '100%',
-                        height: '100vh',
-                        marginTop: '10em',
-                      }}
-                    >
-                      No matching results found, Please try again...
-                      <a onClick={() => history.goBack()}>
-                        <div>Return to previous page</div>
-                      </a>
-                    </div>
-                  )}
-                </Col>
+                    ) : (
+                      <div
+                        style={{
+                          fontSize: '1.2em',
+                          textAlign: 'center',
+                          width: '100%',
+                          height: '100vh',
+                          marginTop: '10em',
+                        }}
+                      >
+                        No matching results found, Please try again...
+                        <a onClick={() => history.goBack()}>
+                          <div>Return to previous page</div>
+                        </a>
+                      </div>
+                    )}
+                  </Col>
 
-                <Col span={9} className="map-container">
-                  <Affix offsetTop={136}>
-                    <GoogleMap
-                      centerLatitude={centerLatitude}
-                      centerLongitude={centerLongitude}
-                      latitude={itemData?.geo_location?.lat}
-                      longitude={itemData?.geo_location?.lon}
-                      goToDetail={goToDetail}
-                      listingId={itemData?.listing_id}
-                    />
-                  </Affix>
-                </Col>
-              </Row>
-            )}
-          </Content>
-        </Layout>
-        <Layout>
-          <Footer style={{ zIndex: 15 }}>
-            <AppFooter />
-          </Footer>
+                  <Col span={9} className="map-container">
+                    <Affix offsetTop={136}>
+                      <GoogleMap
+                        centerLatitude={centerLatitude}
+                        centerLongitude={centerLongitude}
+                        latitude={itemData?.geo_location?.lat}
+                        longitude={itemData?.geo_location?.lon}
+                        goToDetail={goToDetail}
+                        listingId={itemData?.listing_id}
+                      />
+                    </Affix>
+                  </Col>
+                </Row>
+              )}
+            </Content>
+            <Footer style={{ zIndex: 15 }}>
+              <AppFooter />
+            </Footer>
+          </Layout>
         </Layout>
       </Layout>
     </div>
