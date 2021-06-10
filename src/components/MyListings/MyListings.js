@@ -20,27 +20,27 @@ const MyListings = () => {
   const { isFetching, fetchMyListings } = useFetchMyListings();
   const { isDeleting, deleteListing } = useDeleteListing();
 
-
-  
   const fetch = async () => {
     const { listings, error } = await fetchMyListings();
     if (error !== undefined) {
-      if (error === 401) {
-        message.info('Please login to see your listings');
-        history.replace({
-          pathname: '/login',
-          from: '/my-listings',
-        });
-      } else {
-        message.error('Failed to get my listings');
-      }
+      message.error('Failed to get my listings');
     } else {
       setMyListings(listings);
     }
   };
 
   useEffect(() => {
-    fetch();
+    // Check for valid token, if not found, send user to login
+    if (checkValidToken()) {
+      // If found, fetch my listings
+      fetch();
+    } else {
+      message.info('Please login to see your listings');
+      history.replace({
+        pathname: '/login',
+        from: '/my-listings',
+      });
+    }
   }, []);
 
   const getPictureUrl = (picture_urls) => {
@@ -134,7 +134,11 @@ const MyListings = () => {
                   ]}
                   extra={
                     <img
-                      height={180}
+                      style={{
+                        height: '180px',
+                        width: '240px',
+                        objectFit: 'cover',
+                      }}
                       alt="logo"
                       src={getPictureUrl(item.picture_urls)}
                     />

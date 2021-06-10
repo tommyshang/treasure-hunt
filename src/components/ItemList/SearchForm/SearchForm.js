@@ -26,7 +26,7 @@ const SearchForm = ({ setSearchFormData }) => {
       time_interval,
     } = values;
 
-    if (zipcode && radius) {
+    if (zipcode) {
       try {
         const { lat, lng } = await getLatLongFromZip(zipcode);
         values.latitude = lat;
@@ -36,9 +36,12 @@ const SearchForm = ({ setSearchFormData }) => {
       }
     }
 
-    if (keyword === '') {
-      values.keyword = undefined;
-    }
+    Object.entries(values).forEach(([key, val]) => {
+      if (typeof val === 'string' && val.trim() === '') {
+        values[key] = undefined;
+      }
+    });
+
     console.log(values);
     setSearchFormData(values);
   };
@@ -57,19 +60,33 @@ const SearchForm = ({ setSearchFormData }) => {
         size="small"
         colon="false"
         onFinish={onFinish}
+        validateTrigger="onBlur"
       >
         <Form.Item label="Search" name="keyword">
           <Input prefix={<SearchOutlined />} placeholder="Search..." />
         </Form.Item>
-        <Form.Item label="Zipcode" name="zipcode">
-          <InputNumber
+        <Form.Item
+          label="Zipcode"
+          name="zipcode"
+          rules={[{ pattern: '^[0-9]{5}$', message: 'Valid zipcode only' }]}
+        >
+          <Input
             prefix={<CompassOutlined />}
             placeholder="Zipcode..."
             style={{ width: '100%' }}
           />
         </Form.Item>
-        <Form.Item label="Radius" name="radius">
-          <InputNumber style={{ width: '100%' }} />
+        <Form.Item
+          label="Radius"
+          name="radius"
+          rules={[
+            {
+              pattern: '^[0-9]+(.[0-9]{1,2})?$',
+              message: 'Please input a valid number',
+            },
+          ]}
+        >
+          <Input style={{ width: '100%' }} />
         </Form.Item>
         <Form.Item label="Item condition" name="condition">
           <Select>
@@ -81,11 +98,29 @@ const SearchForm = ({ setSearchFormData }) => {
             <Select.Option value="Used - Fair">Used - Fair</Select.Option>
           </Select>
         </Form.Item>
-        <Form.Item label="Min Price" name="min_price">
-          <InputNumber placeholder="Min" style={{ width: '100%' }} />
+        <Form.Item
+          label="Min Price"
+          name="min_price"
+          rules={[
+            {
+              pattern: '^[0-9]+(.[0-9]{1,2})?$',
+              message: 'Please input a valid number',
+            },
+          ]}
+        >
+          <Input placeholder="Min" style={{ width: '100%' }} />
         </Form.Item>
-        <Form.Item label="Max Price" name="max_price">
-          <InputNumber placeholder="Max" style={{ width: '100%' }} />
+        <Form.Item
+          label="Max Price"
+          name="max_price"
+          rules={[
+            {
+              pattern: '^[0-9]+(.[0-9]{1,2})?$',
+              message: 'Please input a valid number',
+            },
+          ]}
+        >
+          <Input placeholder="Max" style={{ width: '100%' }} />
         </Form.Item>
         <Form.Item label="Date listed" name="time_interval">
           <Select>

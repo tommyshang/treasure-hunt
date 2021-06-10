@@ -9,6 +9,7 @@ import TopNavBar from 'components/Header/TopNavBar';
 import AppFooter from 'components/Footer/AppFooter';
 import { Loading } from 'components';
 import { formatPrice } from 'utils';
+import { checkValidToken } from 'utils';
 
 const { Content, Footer } = Layout;
 const { Meta } = Card;
@@ -22,23 +23,20 @@ const SavedListings = () => {
   const fetch = async () => {
     const { listings, error } = await fetchSavedListings();
     if (error !== undefined) {
-      if (error === 401) {
-        message.info('Please login to see your saved listings');
-        history.replace({
-          pathname: '/login',
-          from: '/saved-listings',
-        });
-      } else {
-        message.error('Failed to get saved listings');
-      }
+      message.error('Failed to get saved listings');
     } else {
       setSavedListings(listings);
     }
   };
 
   useEffect(() => {
-    fetch();
-    console.log(savedListings);
+    if (checkValidToken()) {
+      // If found, fetch saved listings
+      fetch();
+    } else {
+      message.info('Please login to see your saved listings');
+      history.replace({ pathname: '/login', from: '/saved-listings' });
+    }
   }, []);
 
   const getPictureUrl = (picture_urls) => {
@@ -82,30 +80,17 @@ const SavedListings = () => {
                 >
                   <Card
                     hoverable
-                    style={{
-                      height: '100%',
-                      width: '100%',
-                    }}
                     cover={
-                      <div
+                      <img
                         style={{
-                          display: 'inline-block',
-                          height: '240px',
-                          overflow: 'hidden',
-                          verticalAlign: 'middle',
+                          padding: '1px',
+                          width: '100%',
+                          height: '300px',
+                          objectFit: 'cover',
                         }}
-                      >
-                        <img
-                          style={{
-                            padding: '1px',
-                            width: '100%',
-                            display: 'block',
-                            verticalAlign: 'middle',
-                          }}
-                          alt="pic"
-                          src={getPictureUrl(item.picture_urls)}
-                        />
-                      </div>
+                        alt="pic"
+                        src={getPictureUrl(item.picture_urls)}
+                      />
                     }
                   >
                     <Meta title={item.title} className="listing-info" />

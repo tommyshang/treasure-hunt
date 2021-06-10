@@ -72,7 +72,7 @@ const ListingDetail = () => {
                   sm={{ span: 24 }}
                   md={{ span: 24 }}
                   lg={{ span: 24 }}
-                  xl={{ span: 24 }}
+                  xl={{ span: 10, gutter: 2 }}
                   xxl={{ span: 10, gutter: 2 }}
                 >
                   <Pictures pictureUrls={listingDetail.picture_urls} />
@@ -82,7 +82,7 @@ const ListingDetail = () => {
                   sm={{ span: 24 }}
                   md={{ span: 24 }}
                   lg={{ span: 24 }}
-                  xl={{ span: 24 }}
+                  xl={{ offset: 2, span: 10 }}
                   xxl={{ offset: 2, span: 10 }}
                 >
                   <TextualInfo listingInfo={listingDetail} />

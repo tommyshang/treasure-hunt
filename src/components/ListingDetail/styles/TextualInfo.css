@@ -9,3 +9,11 @@ button[ant-click-animating-without-extra-node]:after {
   opacity: 0;
   animation: none 0 ease 0 1 normal;
 }
+
+.textual-info {
+  min-height: 60vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: stretch;
+}

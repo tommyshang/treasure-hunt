@@ -9,38 +9,42 @@ import {
   Space,
   Affix,
   message,
-  Form,
 } from 'antd';
 import Item from './Item/Item';
 import GoogleMap from './Map/GoogleMap';
 import Moment from 'moment';
 import { useHistory } from 'react-router-dom';
-import queryString, { stringify } from 'query-string';
+import queryString from 'query-string';
 
 import { useSearch } from 'hooks';
 import './ItemList.style.css';
-import { FilterOutlined, OrderedListOutlined } from '@ant-design/icons';
+import { OrderedListOutlined, SecurityScanTwoTone } from '@ant-design/icons';
 import TopNavBar from 'components/Header/TopNavBar';
 import AppFooter from 'components/Footer/AppFooter';
 import { Loading } from 'components';
 import SearchForm from './SearchForm/SearchForm';
-import { getLatLongFromZip } from 'utils';
+import { getHaversineDistance } from 'utils';
+import SubNavBar from 'components/Header/SubNavBar';
 
 const { Content, Footer, Sider } = Layout;
 
 const ItemList = ({ location }) => {
   const history = useHistory();
   const [items, setItems] = useState(undefined);
+  const [collapsed, setCollapsed] = useState(true);
   const [itemData, setItemData] = useState({});
   const [centerLatitude, setCenterLatitude] = useState(40.75);
   const [centerLongitude, setCenterLongitude] = useState(-73.94);
-  const [collapsed, setCollapsed] = useState(false);
   const { isSearching, search } = useSearch();
   const [searchFormData, setSearchFormData] = useState(undefined);
   const changeData = useCallback((para) => setItemData(para), []);
+  const goToDetail = useCallback((listingId) =>
+    history.push(`/listing-detail/${listingId}`)
+  );
 
-  const onCollapse = (collapsed) => {
-    setCollapsed({ collapsed });
+  // Scroll window to top when mount
+  window.onbeforeunload = () => {
+    window.scrollTo(0, 0);
   };
 
   const getSearchParams = () => {
@@ -69,10 +73,10 @@ const ItemList = ({ location }) => {
   useEffect(() => {
     const parameters = getSearchParams();
     console.log(parameters);
-    if (parameters.keyword || parameters.category) {
-      console.log('fetching with', parameters);
-      fetch(parameters);
+    if (Object.values(parameters).length === 0) {
+      return;
     }
+    fetch(parameters);
   }, [location.search]);
 
   useEffect(() => {
@@ -105,10 +109,27 @@ const ItemList = ({ location }) => {
 
   const sortNewest = () => {
     const sorted = [...items].sort((a, b) => {
-      return (
-        new Moment(a?.date.substr(0, 10)).format('YYYYMMDD') -
-        new Moment(b?.date.substr(0, 10)).format('YYYYMMDD')
+      return new Moment(b?.date) - new Moment(a?.date);
+    });
+
+    setItems(sorted);
+  };
+
+  const sortNearest = () => {
+    const sorted = [...items].sort((a, b) => {
+      const distA = getHaversineDistance(
+        centerLatitude,
+        centerLongitude,
+        a?.geo_location.lat,
+        a?.geo_location.lon
       );
+      const distB = getHaversineDistance(
+        centerLatitude,
+        centerLongitude,
+        b?.geo_location.lat,
+        b?.geo_location.lon
+      );
+      return distA - distB;
     });
 
     setItems(sorted);
@@ -117,13 +138,16 @@ const ItemList = ({ location }) => {
   const menu = (
     <Menu>
       <Menu.Item onClick={() => sortHighToLow()} visible type="button">
-        Price: High-Low
+        Price: Highest first
       </Menu.Item>
       <Menu.Item onClick={() => sortLowToHigh()} visible type="button">
-        Price: Low-High
+        Price: Lowest first
       </Menu.Item>
       <Menu.Item onClick={() => sortNewest()} visible type="button">
-        Newest
+        Date listed: Newest First
+      </Menu.Item>
+      <Menu.Item onClick={() => sortNearest()} visible type="button">
+        Distance: Nearest First
       </Menu.Item>
     </Menu>
   );
@@ -133,10 +157,12 @@ const ItemList = ({ location }) => {
       <Layout style={{ minHeight: '100vh' }}>
         <Affix offsetTop={0} className="app__affix-header">
           <TopNavBar />
+          <SubNavBar />
         </Affix>
         <Layout style={{ minHeight: '100vh' }}>
           <Sider
             collapsedWidth="0"
+            defaultCollapsed={true}
             theme="light"
             collapsible
             style={{ borderRight: '1px solid #f0f0f0' }}
@@ -215,6 +241,8 @@ const ItemList = ({ location }) => {
                     centerLongitude={centerLongitude}
                     latitude={itemData?.geo_location?.lat}
                     longitude={itemData?.geo_location?.lon}
+                    goToDetail={goToDetail}
+                    listingId={itemData?.listing_id}
                   />
                 </Col>
               </Row>
