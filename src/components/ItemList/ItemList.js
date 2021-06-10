@@ -107,7 +107,7 @@ const ItemList = ({ location }) => {
 
   const sortNewest = () => {
     const sorted = [...items].sort((a, b) => {
-      return new Moment(a?.date) - new Moment(b?.date);
+      return new Moment(b?.date) - new Moment(a?.date);
     });
 
     setItems(sorted);

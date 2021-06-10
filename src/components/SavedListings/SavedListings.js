@@ -35,7 +35,7 @@ const SavedListings = () => {
       fetch();
     } else {
       message.info('Please login to see your saved listings');
-      history.replace({ pathname: '/login', from: '/saved-listing' });
+      history.replace({ pathname: '/login', from: '/saved-listings' });
     }
   }, []);
 
