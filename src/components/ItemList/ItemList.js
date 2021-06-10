@@ -235,7 +235,7 @@ const ItemList = ({ location }) => {
                   )}
                 </Col>
 
-                <Col span={8} className="map-container">
+                <Col span={9} className="map-container">
                   <GoogleMap
                     centerLatitude={centerLatitude}
                     centerLongitude={centerLongitude}
@@ -251,7 +251,7 @@ const ItemList = ({ location }) => {
         </Layout>
         <Layout>
           <Footer>
-            <AppFooter />
+            <AppFooter className={"App-footer"}/>
           </Footer>
         </Layout>
       </Layout>

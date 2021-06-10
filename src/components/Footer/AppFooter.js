@@ -7,7 +7,7 @@ import './AppFooter.css';
 class AppFooter extends Component {
   render() {
     return (
-      <Row justify="space-between">
+      <Row justify="space-between" className={"App-footer"}>
         <Col
           className="footer-column"
           xs={{ span: 5, offset: 1 }}
