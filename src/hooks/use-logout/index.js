@@ -1,5 +1,5 @@
-import axios from 'axios';
 import { useState } from 'react';
+
 import { TOKEN_KEY } from 'constants/constants';
 
 const useLogout = () => {

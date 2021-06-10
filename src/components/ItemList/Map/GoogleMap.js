@@ -1,7 +1,8 @@
+import { GoogleApiWrapper, Map, Marker } from 'google-maps-react';
 import React, { Component } from 'react';
-import { Map, Marker, GoogleApiWrapper } from 'google-maps-react';
-import { GOOGLE_API_KEY } from 'constants/constants';
+
 import Avatar from 'assets/images/user.svg';
+import { GOOGLE_API_KEY } from 'constants/constants';
 
 const style = {
   width: '100%',

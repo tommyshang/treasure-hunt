@@ -1,6 +1,5 @@
-import React, { Component } from 'react';
-
 import { Layout, Menu } from 'antd';
+import React from 'react';
 import { useHistory } from 'react-router';
 
 const { Header } = Layout;

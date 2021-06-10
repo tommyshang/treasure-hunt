@@ -1,20 +1,14 @@
-import React, { useState } from 'react';
-import {
-  Form,
-  Input,
-  Button,
-  Radio,
-  Select,
-  Cascader,
-  DatePicker,
-  InputNumber,
-  TreeSelect,
-  Switch,
-} from 'antd';
 import { CompassOutlined, SearchOutlined } from '@ant-design/icons';
+import { Button, Form, Input, Select } from 'antd';
+import React from 'react';
+
 import { getLatLongFromZip } from 'utils';
 
 const SearchForm = ({ setSearchFormData }) => {
+  const formItemStyle = {
+    marginBottom: '8px',
+  };
+
   const onFinish = async (values) => {
     const {
       keyword,
@@ -62,13 +56,14 @@ const SearchForm = ({ setSearchFormData }) => {
         onFinish={onFinish}
         validateTrigger="onBlur"
       >
-        <Form.Item label="Search" name="keyword">
+        <Form.Item label="Search" name="keyword" style={formItemStyle}>
           <Input prefix={<SearchOutlined />} placeholder="Search..." />
         </Form.Item>
         <Form.Item
           label="Zipcode"
           name="zipcode"
           rules={[{ pattern: '^[0-9]{5}$', message: 'Valid zipcode only' }]}
+          style={formItemStyle}
         >
           <Input
             prefix={<CompassOutlined />}
@@ -85,10 +80,15 @@ const SearchForm = ({ setSearchFormData }) => {
               message: 'Please input a valid number',
             },
           ]}
+          style={formItemStyle}
         >
           <Input style={{ width: '100%' }} />
         </Form.Item>
-        <Form.Item label="Item condition" name="condition">
+        <Form.Item
+          label="Item condition"
+          name="condition"
+          style={formItemStyle}
+        >
           <Select>
             <Select.Option value="New">New</Select.Option>
             <Select.Option value="Used - Like new">
@@ -107,6 +107,7 @@ const SearchForm = ({ setSearchFormData }) => {
               message: 'Please input a valid number',
             },
           ]}
+          style={formItemStyle}
         >
           <Input placeholder="Min" style={{ width: '100%' }} />
         </Form.Item>
@@ -119,10 +120,15 @@ const SearchForm = ({ setSearchFormData }) => {
               message: 'Please input a valid number',
             },
           ]}
+          style={formItemStyle}
         >
           <Input placeholder="Max" style={{ width: '100%' }} />
         </Form.Item>
-        <Form.Item label="Date listed" name="time_interval">
+        <Form.Item
+          label="Date listed"
+          name="time_interval"
+          style={formItemStyle}
+        >
           <Select>
             <Select.Option value="365">All</Select.Option>
             <Select.Option value="1">Last 24 hours</Select.Option>
@@ -130,7 +136,7 @@ const SearchForm = ({ setSearchFormData }) => {
             <Select.Option value="30">Last 30 days</Select.Option>
           </Select>
         </Form.Item>
-        <Form.Item>
+        <Form.Item style={{ marginTop: '30px' }}>
           <Button style={{ width: '100%' }} type="primary" htmlType="submit">
             Search
           </Button>

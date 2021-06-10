@@ -1,15 +1,13 @@
-import React, { useState, useEffect } from 'react';
+import { Card, List, Typography } from 'antd';
+import React from 'react';
+import { useHistory } from 'react-router-dom';
 
-import { List, Card, Typography } from 'antd';
-import { Link, useHistory } from 'react-router-dom';
-import { useSearch } from 'hooks';
-
-import furniture1 from 'assets/images/furniture1.jpg';
-import car1 from 'assets/images/car1.jpg';
-import electronics1 from 'assets/images/electronics1.jpg';
 import apparels from 'assets/images/apparels.jpg';
 import book from 'assets/images/book.jpg';
+import car1 from 'assets/images/car1.jpg';
+import electronics1 from 'assets/images/electronics1.jpg';
 import exercise_equipments from 'assets/images/exercise_equipment.jpg';
+import furniture1 from 'assets/images/furniture1.jpg';
 
 const { Meta } = Card;
 const { Title } = Typography;
@@ -51,7 +49,6 @@ const shopCategoryHeadStyle = {
   textAlign: 'left',
   borderBottom: '0px',
 };
-
 
 const ShopCategory = () => {
   const history = useHistory();

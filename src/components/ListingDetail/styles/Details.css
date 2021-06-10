@@ -1,5 +1,4 @@
 .details {
-  /* font-size: 25px; */
   font-weight: normal;
 }
 .ant-divider {
@@ -9,22 +8,18 @@
   margin-bottom: 5px;
 }
 .detail-text {
-  /* font-size: 40px; */
   font-weight: bold;
 }
 
 .condition {
   width: 100%;
-  /* font-size: 30px; */
 }
 
 .brand {
   width: 100%;
-  /* font-size: 30px; */
 }
 .details-title {
   width: fit-content;
-  /* font-size: 35px; */
   flex: 1;
   text-align: left;
 }
@@ -35,5 +30,4 @@
 
 .description {
   width: 100%;
-  /* font-size: 20px; */
 }

@@ -1,9 +1,8 @@
+import { Carousel } from 'antd';
 import React, { Component } from 'react';
 
-import { Carousel } from 'antd';
-
-import CarouselSlideSell from './CarouselSlideSell';
 import CarouselSlideBuy from './CarouselSlideBuy';
+import CarouselSlideSell from './CarouselSlideSell';
 
 function onChange(a, b) {
   console.log(a, b);

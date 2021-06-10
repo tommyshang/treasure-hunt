@@ -1,5 +1,5 @@
-import React, { Component } from 'react';
 import { Divider } from 'antd';
+import React from 'react';
 
 function Headline() {
   return (

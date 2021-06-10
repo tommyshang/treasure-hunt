@@ -1,16 +1,13 @@
+import { Avatar, Card, Col, List, Row, Typography } from 'antd';
 import React, { Component } from 'react';
 
-import { Card, Col, List, Row, Avatar, Typography } from 'antd';
-
-import homepage_people from 'assets/images/homepage_people.jpg';
 import find_it from 'assets/icons/find_it.svg';
 import flaunt_it from 'assets/icons/flaunt_it.svg';
 import set_it_free from 'assets/icons/set_it_free.svg';
-import have_more_waste_less from 'assets/images/have-more-waste-less-smaller.png';
-import waste_less from 'assets/images/waste-less.png';
+import homepage_people from 'assets/images/homepage_people.jpg';
 
 const { Meta } = Card;
-const { Title, Text } = Typography;
+const { Title } = Typography;
 
 const data = [
   {
@@ -52,7 +49,6 @@ const haveMoreWasteLessHeadStyle = {
   borderBottom: '0px',
 };
 
-
 class HomeFlaunt extends Component {
   render() {
     return (
@@ -60,17 +56,30 @@ class HomeFlaunt extends Component {
         <Col span={16} className="Home-page-flaunt">
           {/*TODO: smaller / better resolution "have more waste less"*/}
           <Card
-              headStyle={haveMoreWasteLessHeadStyle}
-              // title={
-              //     <Title level={2} style={{ color: '#142264' }}>
-              //         HAVE MORE
-              //     </Title>
-              // }
-              bordered={false}
+            headStyle={haveMoreWasteLessHeadStyle}
+            // title={
+            //     <Title level={2} style={{ color: '#142264' }}>
+            //         HAVE MORE
+            //     </Title>
+            // }
+            bordered={false}
             // cover={<img alt={"waste_less"} src={waste_less} style={haveMoreWasteLessStyle}/>}
           >
-            <Title level={1} style={{color:'#142264'}}>HAVE MORE</Title>
-            <Title level={1}style={{fontFamily:'Bungee',fontSize: '500%', margin: '0px',color:'#142264'}}> SAVE MORE </Title>
+            <Title level={1} style={{ color: '#142264' }}>
+              HAVE MORE
+            </Title>
+            <Title
+              level={1}
+              style={{
+                fontFamily: 'Bungee',
+                fontSize: '500%',
+                margin: '0px',
+                color: '#142264',
+              }}
+            >
+              {' '}
+              SAVE MORE{' '}
+            </Title>
           </Card>
 
           {/*TODO: what page does "flaunt it" direct to? direct "find it" to /items; direct "set it free" to "/sell"?*/}

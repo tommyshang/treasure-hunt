@@ -1,7 +1,8 @@
-import React from 'react';
 import { Carousel, Image } from 'antd';
-// import { ArrowRightOutlined, ArrowLeftOutlined } from '@ant-design/icons';
+import React from 'react';
+
 import { PICTURE_URL_PREFIX } from 'constants/constants';
+
 import '../styles/Pictures.css';
 
 const Pictures = (props) => {

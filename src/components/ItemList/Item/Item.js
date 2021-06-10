@@ -1,6 +1,6 @@
+import { Card, Col, List, Row } from 'antd';
 import React from 'react';
 import { useHistory } from 'react-router';
-import { Card, List, Row, Col } from 'antd';
 
 import { PICTURE_URL_PREFIX } from 'constants/constants';
 import { formatPrice } from 'utils';

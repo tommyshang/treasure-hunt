@@ -1,12 +1,13 @@
-import React, { useEffect } from 'react';
 import { Button, Form, Input, message, Row } from 'antd';
+import React from 'react';
 import { Link, useHistory, useLocation } from 'react-router-dom';
 
-import Logo from 'assets/logos/th_logo.svg';
-import SplitLayout from '../SplitLayout/SplitLayout.js';
 import LoginPhoto from 'assets/images/login_img.jpg';
+import Logo from 'assets/logos/th_logo.svg';
 import { useLogin } from 'hooks';
-import { Loading } from 'components/index.js';
+
+import SplitLayout from '../SplitLayout/SplitLayout.js';
+
 import './Login.css';
 
 const Login = () => {

@@ -1,5 +1,4 @@
 .catergries {
-  /* font-size: 2em; */
   width: 100%;
 }
 
@@ -9,7 +8,6 @@
   width: 100%;
 }
 .date-location {
-  /* font-size: 2em; */
 }
 
 .star {
@@ -18,7 +16,6 @@
 }
 
 .price {
-  /* font-size: 4em; */
   color: #ff8300;
   margin-top: 20px;
   margin-bottom: 20px;

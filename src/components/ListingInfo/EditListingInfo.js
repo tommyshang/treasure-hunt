@@ -1,16 +1,16 @@
-import React, { useEffect, useState } from 'react';
-import { Affix, Row, Col, Layout, message, Spin } from 'antd';
-import axios from 'axios';
 import { LoadingOutlined } from '@ant-design/icons';
-
-import EditListing from './EditListingInfo/EditListing';
-import ListingImage from './CreateListingImage/ListingImage';
-import Headline from './Headline/Headline';
-import TopNavBar from 'components/Header/TopNavBar';
+import { Affix, Col, Layout, message, Row, Spin } from 'antd';
+import axios from 'axios';
+import React, { useEffect, useState } from 'react';
 import { useHistory, useParams } from 'react-router';
-import { checkValidToken } from 'utils';
+
 import AppFooter from 'components/Footer/AppFooter';
-import { buildFullPictureUrl } from 'utils';
+import TopNavBar from 'components/Header/TopNavBar';
+import { buildFullPictureUrl, checkValidToken } from 'utils';
+
+import ListingImage from './CreateListingImage/ListingImage';
+import EditListing from './EditListingInfo/EditListing';
+import Headline from './Headline/Headline';
 
 const { Content, Footer } = Layout;
 

@@ -1,14 +1,17 @@
+import { ArrowLeftOutlined, LoadingOutlined } from '@ant-design/icons';
+import { Affix, Button, Col, Layout, message, Row, Spin } from 'antd';
 import React, { useEffect, useState } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
-import { Affix, Row, Col, Button, Layout, message, Spin } from 'antd';
-import { ArrowLeftOutlined, LoadingOutlined } from '@ant-design/icons';
+
+import TopNavBar from 'components/Header/TopNavBar';
+import { useFetchListingDetail } from 'hooks';
+
 import Pictures from './components/Pictures';
 import TextualInfo from './components/TextualInfo';
-import './ListingDetail.css';
-import { useFetchListingDetail } from 'hooks';
-import TopNavBar from 'components/Header/TopNavBar';
 
-const { Header, Content } = Layout;
+import './ListingDetail.css';
+
+const { Content } = Layout;
 
 const ListingDetail = () => {
   const { listing_id } = useParams();

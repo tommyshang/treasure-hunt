@@ -1,7 +1,8 @@
+import { Avatar, Button, Col, Divider, Modal, Row } from 'antd';
 import React, { useState } from 'react';
-import { Modal, Row, Col, Button, Divider, Avatar, Space } from 'antd';
-import { UserOutlined } from '@ant-design/icons';
+
 import { checkValidToken } from 'utils';
+
 import '../styles/SellerInfo.css';
 
 const SellerInfo = (props) => {

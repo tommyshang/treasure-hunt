@@ -1,7 +1,9 @@
 import React from 'react';
-import Overview from './Overview';
+
 import Details from './Details';
+import Overview from './Overview';
 import SellerInfo from './SellerInfo';
+
 import '../styles/TextualInfo.css';
 
 const TextualInfo = (props) => {
@@ -21,7 +23,7 @@ const TextualInfo = (props) => {
         sellerName={listingInfo.seller_name}
         address={listingInfo.city_and_state}
         sellerEmail={listingInfo.seller_email}
-        sellerId = {listingInfo.seller_id}
+        sellerId={listingInfo.seller_id}
       />
     </div>
   );
