@@ -19,10 +19,12 @@
   /* font-size: 30px; */
 }
 
-.contact-btn {
+/* .contact-btn {
   color: #fff;
   background: #00a9cd;
-}
+  border: 0px;
+} */
+
 button[ant-click-animating-without-extra-node]:after {
   border: 0 none;
   opacity: 0;

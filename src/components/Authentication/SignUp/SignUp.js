@@ -72,19 +72,19 @@ const SignUp = () => {
               <Form.Item
                 className="su_form-item"
                 name="email"
-                label="Email"
+                label="Student Email"
                 rules={[
                   {
                     type: 'email',
-                    message: 'The inputted value is not a valid email',
+                    message: 'The inputted value is not a valid student email',
                   },
                   {
                     required: true,
-                    message: 'Email is required',
+                    message: 'Student email is required',
                   },
                 ]}
               >
-                <Input placeholder="Email" />
+                <Input placeholder="Student Email" />
               </Form.Item>
 
               <Form.Item

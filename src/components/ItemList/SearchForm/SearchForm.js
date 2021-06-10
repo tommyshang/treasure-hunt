@@ -49,7 +49,7 @@ const SearchForm = ({ setSearchFormData }) => {
   return (
     <>
       <Form
-        style={{ margin: '70px 10px' }}
+        style={{ margin: '70px 10px', height: '100vh' }}
         labelCol={{
           span: 23,
         }}
