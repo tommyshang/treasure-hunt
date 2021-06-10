@@ -34,8 +34,8 @@ export class MapContainer extends Component {
           lng: this.state.mapCenter.lng,
         }}
         center={{
-          lat: this.props.latitude,
-          lng: this.props.longitude,
+          lat: this.props.latitude || this.props.centerLatitude,
+          lng: this.props.longitude || this.props.centerLongitude,
         }}
         containerStyle={style}
         zoom={10}
