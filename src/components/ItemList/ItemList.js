@@ -180,7 +180,7 @@ const ItemList = ({ location }) => {
                 }}
               />
             ) : (
-              <Row>
+              <Row justify="space-between">
                 <Col span={15} className="item-list">
                   {!items ? (
                     <div
@@ -235,7 +235,7 @@ const ItemList = ({ location }) => {
                   )}
                 </Col>
 
-                <Col span={8} className="map-container">
+                <Col span={9} className="map-container">
                   <GoogleMap
                     centerLatitude={centerLatitude}
                     centerLongitude={centerLongitude}

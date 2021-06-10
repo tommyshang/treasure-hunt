@@ -30,6 +30,11 @@ const SellerInfo = (props) => {
     );
   };
 
+  const contactBtnStyle = {
+    background: '#00a9cd',
+    borderColor: '#00a9cd',
+  };
+
   return (
     <Row span={24} className="seller-section ">
       <Row span={24} className="header">
@@ -54,6 +59,7 @@ const SellerInfo = (props) => {
                   type="primary"
                   shape="round"
                   onClick={showModal}
+                  style={contactBtnStyle}
                 >
                   Send a message
                 </Button>
