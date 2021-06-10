@@ -162,7 +162,7 @@ const ItemList = ({ location }) => {
         <Layout style={{ minHeight: '100vh' }}>
           <Sider
             collapsedWidth="0"
-            defaultCollapsed={true}
+            defaultCollapsed={Object.values(getSearchParams()).length !== 0}
             theme="light"
             collapsible
             style={{ borderRight: '1px solid #f0f0f0' }}
