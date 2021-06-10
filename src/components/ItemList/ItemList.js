@@ -181,7 +181,7 @@ const ItemList = ({ location }) => {
               />
             ) : (
               <Row>
-                <Col span={15} className="item-list">
+                <Col span={14} className="item-list">
                   {!items ? (
                     <div
                       style={{
@@ -235,7 +235,7 @@ const ItemList = ({ location }) => {
                   )}
                 </Col>
 
-                <Col span={9} className="map-container">
+                <Col span={8} className="map-container">
                   <GoogleMap
                     centerLatitude={centerLatitude}
                     centerLongitude={centerLongitude}
@@ -251,7 +251,7 @@ const ItemList = ({ location }) => {
         </Layout>
         <Layout>
           <Footer>
-            <AppFooter className={"App-footer"}/>
+            <AppFooter/>
           </Footer>
         </Layout>
       </Layout>
