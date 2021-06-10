@@ -16,27 +16,27 @@ const data = [
   {
     title: 'Find It',
     description:
-      'Discover the thrill of finding one-of-a-kind pieces at out-of-this-world prices',
+      'Feel thrilled discovering items that bring you joy, from trustworthy sellers who loved the items as much as you would',
     content:
-      'Discover the thrill of finding one-of-a-kind pieces at out-of-this-world prices',
+      'Feel thrilled discovering items that bring you joy, from trustworthy sellers who loved the items as much as you would',
     alt: 'find it',
     src: find_it,
   },
   {
     title: 'Flaunt It',
     description:
-      'Show off your secondhand clothes with pride, knowing you saved money and the planet',
+      'Feel proud showing off your new and vintage items and connecting with like-minded folks who saved wallets and trees',
     content:
-      'Discover the thrill of finding one-of-a-kind pieces at out-of-this-world prices',
+      'Feel proud showing off your new and vintage items and connecting with like-minded folks who saved wallets and trees',
     alt: 'flaunt it',
     src: flaunt_it,
   },
   {
     title: 'Set It Free',
     description:
-      'Feel good about releasing your unwanted items to thrifters who will love them',
+      'Feel good about sending off your pre-loved items to a new loving and trustworthy home',
     content:
-      'Discover the thrill of finding one-of-a-kind pieces at out-of-this-world prices',
+      'Feel good about sending off your pre-loved items to a new loving and trustworthy home',
     alt: 'set it free',
     src: set_it_free,
   },
@@ -52,6 +52,7 @@ const haveMoreWasteLessHeadStyle = {
   borderBottom: '0px',
 };
 
+
 class HomeFlaunt extends Component {
   render() {
     return (
@@ -59,20 +60,17 @@ class HomeFlaunt extends Component {
         <Col span={16} className="Home-page-flaunt">
           {/*TODO: smaller / better resolution "have more waste less"*/}
           <Card
-            headStyle={haveMoreWasteLessHeadStyle}
-            // title={<Title level={2} style={{color:'#142264'}}>HAVE MORE</Title>}
-            bordered={false}
-            cover={
-              <img
-                alt={'have_more_waste_less'}
-                src={have_more_waste_less}
-                style={haveMoreWasteLessStyle}
-              />
-            }
+              headStyle={haveMoreWasteLessHeadStyle}
+              // title={
+              //     <Title level={2} style={{ color: '#142264' }}>
+              //         HAVE MORE
+              //     </Title>
+              // }
+              bordered={false}
             // cover={<img alt={"waste_less"} src={waste_less} style={haveMoreWasteLessStyle}/>}
           >
-            {/*<Title level={2} style={{color:'#142264'}}>HAVE MORE</Title>*/}
-            {/*<Title level={1}style={{color:'#142264', margin:'0px'}}> WASTE LESS </Title>*/}
+            <Title level={1} style={{color:'#142264'}}>HAVE MORE</Title>
+            <Title level={1}style={{fontFamily:'Bungee',fontSize: '500%', margin: '0px',color:'#142264'}}> SAVE MORE </Title>
           </Card>
 
           {/*TODO: what page does "flaunt it" direct to? direct "find it" to /items; direct "set it free" to "/sell"?*/}
