@@ -9,6 +9,7 @@ import TopNavBar from 'components/Header/TopNavBar';
 import AppFooter from 'components/Footer/AppFooter';
 import { Loading } from 'components';
 import { formatPrice } from 'utils';
+import { checkValidToken } from 'utils';
 
 const { Content, Footer } = Layout;
 const { Meta } = Card;
@@ -22,23 +23,20 @@ const SavedListings = () => {
   const fetch = async () => {
     const { listings, error } = await fetchSavedListings();
     if (error !== undefined) {
-      if (error === 401) {
-        message.info('Please login to see your saved listings');
-        history.replace({
-          pathname: '/login',
-          from: '/saved-listings',
-        });
-      } else {
-        message.error('Failed to get saved listings');
-      }
+      message.error('Failed to get saved listings');
     } else {
       setSavedListings(listings);
     }
   };
 
   useEffect(() => {
-    fetch();
-    console.log(savedListings);
+    if (checkValidToken()) {
+      // If found, fetch saved listings
+      fetch();
+    } else {
+      message.info('Please login to see your saved listings');
+      history.replace({ pathname: '/login', from: '/saved-listing' });
+    }
   }, []);
 
   const getPictureUrl = (picture_urls) => {

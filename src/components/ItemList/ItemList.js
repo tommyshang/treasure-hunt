@@ -33,7 +33,6 @@ const ItemList = ({ location }) => {
   const [itemData, setItemData] = useState({});
   const [centerLatitude, setCenterLatitude] = useState(40.75);
   const [centerLongitude, setCenterLongitude] = useState(-73.94);
-  const [collapsed, setCollapsed] = useState(false);
   const { isSearching, search } = useSearch();
   const [searchFormData, setSearchFormData] = useState(undefined);
   const changeData = useCallback((para) => setItemData(para), []);
@@ -72,6 +71,9 @@ const ItemList = ({ location }) => {
   useEffect(() => {
     const parameters = getSearchParams();
     console.log(parameters);
+    if (Object.values(parameters).length === 0) {
+      return;
+    }
     fetch(parameters);
   }, [location.search]);
 
