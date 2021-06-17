@@ -28,7 +28,7 @@
 .map-container {
   position: fixed;
   right: 0;
-  bottom: 0;
-  top: 12.5%;
   width: 100%;
 }
+
+/*TODO: map container shouldn't lay on top of footer*/

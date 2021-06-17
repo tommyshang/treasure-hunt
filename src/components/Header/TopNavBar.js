@@ -19,13 +19,6 @@ function TopNavBar(props) {
           <LeftMenu />
         </Col>
         <Col xs={2} sm={4} md={6} lg={8} xl={10}>
-          {/*TODO: Which component's props does TopNavBar takes in to get isLoggedIn? in other words. in which component do I do const [isLoggedIn, setIsLoggedIn] = useState(localStorage.getItem(TOKEN_KEY) ? true : false );*/}
-          {/*{*/}
-          {/*    isLoggedIn ?*/}
-          {/*        <LogoutOutlined className='logout' onClick={handleLogout}/>*/}
-          {/*        :*/}
-          {/*        <RightMenu/>*/}
-          {/*}*/}
           <RightMenu />
         </Col>
       </Row>

@@ -181,7 +181,7 @@ const ItemList = ({ location }) => {
               />
             ) : (
               <Row>
-                <Col span={15} className="item-list">
+                <Col span={14} className="item-list">
                   {!items ? (
                     <div
                       style={{
@@ -251,7 +251,7 @@ const ItemList = ({ location }) => {
         </Layout>
         <Layout>
           <Footer>
-            <AppFooter />
+            <AppFooter/>
           </Footer>
         </Layout>
       </Layout>
